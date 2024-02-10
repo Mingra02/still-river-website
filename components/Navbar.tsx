@@ -15,7 +15,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="fixed z-10 w-screen">
+      <div className="fixed z-10 w-screen overflow-hidden">
         <div className="flex w-screen items-center justify-between bg-slate-950 pt-3">
           <div className="px-10">
             <Image
@@ -55,7 +55,7 @@ const Navbar = () => {
         className={`fixed z-10 h-screen w-screen bg-slate-950/70 pt-3 backdrop-blur-sm transition-opacity duration-300 md:hidden ${isOpen ? "opacity-100" : "pointer-events-none opacity-0"}`}
       >
         <div className="absolute bottom-0 -z-10 h-full w-full opacity-20">
-          <div className="heropattern-circuitboard-slate-100 absolute -z-10 h-full w-full"></div>
+          <div className="absolute -z-10 h-full w-full heropattern-circuitboard-slate-100"></div>
           <div className="absolute -z-10 h-full w-full bg-gradient-to-tl from-slate-950/0 via-slate-950 to-slate-950"></div>
         </div>
         <div className="z-10 h-full w-full">

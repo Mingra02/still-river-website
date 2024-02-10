@@ -9,6 +9,7 @@ import {
   faLinkedin,
   faXTwitter,
 } from "@fortawesome/free-brands-svg-icons";
+import Link from "next/link";
 
 const FooterLinkGroup = ({
   title,
@@ -35,7 +36,7 @@ const FooterLinkGroup = ({
 
 const Newsletter = () => {
   return (
-    <div className="col-span-2 flex max-w-md flex-col lg:col-start-3 lg:row-start-1 lg:row-end-3 xl:col-span-3 xl:col-start-5">
+    <div className="col-span-2 flex max-w-md flex-col lg:col-start-3 lg:row-start-1 lg:row-end-3 lg:h-full lg:w-full lg:place-self-end xl:col-span-3 xl:col-start-5">
       <h3 className="font-bold text-slate-200">Subscribe to our newsletter</h3>
       <p className="text-slate-300">
         Receive news, blog posts, and more to your inbox.
@@ -57,18 +58,28 @@ const Newsletter = () => {
 const SocialLinks = () => {
   return (
     <div className="mx-10 mt-6 flex w-full max-w-sm justify-between px-10 text-4xl text-slate-700 lg:place-self-end lg:px-0">
-      <FontAwesomeIcon icon={faFacebook} />
-      <FontAwesomeIcon icon={faXTwitter} />
-      <FontAwesomeIcon icon={faInstagram} />
-      <FontAwesomeIcon icon={faGithub} />
-      <FontAwesomeIcon icon={faLinkedin} />
+      <Link href="http://www.facebook.com/">
+        <FontAwesomeIcon icon={faFacebook} />
+      </Link>
+      <Link href="http://www.twitter.com/">
+        <FontAwesomeIcon icon={faXTwitter} />
+      </Link>
+      <Link href="http://www.instagram.com/">
+        <FontAwesomeIcon icon={faInstagram} />
+      </Link>
+      <Link href="http://www.github.com/">
+        <FontAwesomeIcon icon={faGithub} />
+      </Link>
+      <Link href="http://www.linkedin.com/">
+        <FontAwesomeIcon icon={faLinkedin} />
+      </Link>
     </div>
   );
 };
 
 const Footer = () => {
   return (
-    <footer className="relative m-auto mb-10 mt-8 max-w-7xl text-slate-400 xl:mt-48">
+    <footer className="relative m-auto mb-10 mt-8 w-screen max-w-7xl overflow-hidden text-slate-400 xl:mt-48">
       <div className="mx-10 h-0 border-t border-slate-600"></div>
       <div className="align-center lg:gap-y-p4 m-auto mx-10 mt-8 grid grid-cols-2 gap-8 px-3 lg:mb-8 lg:grid-cols-4 xl:mb-32 xl:grid-cols-7">
         <FooterLinkGroup
