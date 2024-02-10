@@ -24,6 +24,9 @@ concurrency:
   group: "pages"
   cancel-in-progress: false
 
+env:
+  LOCATION: "GH_PAGES"
+
 jobs:
   # Build job
   build:
