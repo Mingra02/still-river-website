@@ -1,9 +1,7 @@
 /** @type {import('next').NextConfig} */
 
-const pathPrefix =
-  process.env.LOCATION === "GH_PAGES" ? "/still-river-website/" : "";
-
-console.log("Loading for", process.env.LOCATION);
+const basePath = process.env.BASEPATH || undefined;
+const pathPrefix = process.env.PATHPREFIX || undefined;
 
 const nextConfig = {
   output: "export",
@@ -12,6 +10,7 @@ const nextConfig = {
     unoptimized: true,
   },
   assetPrefix: pathPrefix,
+  basePath: basePath,
 };
 
 export default nextConfig;

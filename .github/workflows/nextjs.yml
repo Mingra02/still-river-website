@@ -25,7 +25,8 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  LOCATION: "GH_PAGES"
+  BASEPATH: "/still-river-website"
+  PATHPREFIX: "/still-river-website/"
 
 jobs:
   # Build job
