@@ -32,7 +32,7 @@ export default function Home() {
     <>
       <div className="relative m-auto h-[85vh] w-full">
         <Image
-          src="/img/hero.png"
+          src="./img/hero.png"
           alt="The Still River"
           fill
           className="absolute inset-0 -z-20 -mt-16 h-full w-full object-cover brightness-[40%]"
@@ -96,14 +96,14 @@ export default function Home() {
         </h2>
         <div className="grid grid-cols-1 gap-12 px-8 lg:grid-cols-2 xl:gap-24">
           <PortfolioCard
-            imgSrc="/img/easytunes.jpg"
+            imgSrc="./img/easytunes.jpg"
             title="EasyTunes"
             description="EasyTunes is a generative music model for creating simple music
           tracks. It is designed to work on consumer-grade hardware and can
           create a song in less than a minute and a half on just a CPU."
           />
           <PortfolioCard
-            imgSrc="/img/budgetpro.jpg"
+            imgSrc="./img/budgetpro.jpg"
             title="BudgetPro"
             description="BudgetPro is an advanced budgeting app that creates budgets based on the user's income, calculates tax witholdings, loan payoffs, and more."
           />

@@ -19,7 +19,7 @@ const Navbar = () => {
         <div className="flex w-screen items-center justify-between bg-slate-950 pt-3">
           <div className="px-10">
             <Image
-              src="/img/logo.png"
+              src="./img/logo.png"
               width={40}
               height={40}
               alt="Still River"
@@ -62,7 +62,7 @@ const Navbar = () => {
           <div className="flex w-full justify-between px-10">
             <div className="flex items-center justify-center">
               <Image
-                src="/img/logo.png"
+                src="./img/logo.png"
                 width={40}
                 height={40}
                 alt="Still River"
