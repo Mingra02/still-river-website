@@ -79,7 +79,7 @@ const SocialLinks = () => {
 
 const Footer = () => {
   return (
-    <footer className="relative m-auto mb-10 mt-8 w-screen max-w-7xl overflow-hidden text-slate-400 xl:mt-48">
+    <footer className="relative m-auto mb-10 mt-8 w-screen max-w-7xl overflow-hidden text-slate-400">
       <div className="mx-10 h-0 border-t border-slate-600"></div>
       <div className="align-center lg:gap-y-p4 m-auto mx-10 mt-8 grid grid-cols-2 gap-8 px-3 lg:mb-8 lg:grid-cols-4 xl:mb-32 xl:grid-cols-7">
         <FooterLinkGroup

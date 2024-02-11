@@ -90,7 +90,7 @@ export default function Home() {
           ))}
         </div>
       </section>
-      <section className="relative m-auto mt-24 max-w-7xl lg:mt-48">
+      <section className="relative m-auto mt-24 max-w-7xl lg:mb-24 lg:mt-48">
         <h2 className="m-auto mb-12 w-full text-center text-4xl font-semibold text-slate-100 xl:mb-24">
           Our Portfolio
         </h2>

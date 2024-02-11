@@ -16,21 +16,23 @@ const Navbar = () => {
   return (
     <>
       <div className="fixed z-10 w-screen overflow-hidden">
-        <div className="flex w-screen items-center justify-between bg-slate-950 pt-3">
+        <div className="flex w-screen items-center justify-between bg-gradient-to-b from-slate-950 via-slate-950 to-slate-950/20 pt-3">
           <div className="px-10">
-            <Image
-              src="./img/logo.png"
-              width={40}
-              height={40}
-              alt="Still River"
-            />
+            <Link href="/">
+              <Image
+                src="./img/logo.png"
+                width={40}
+                height={40}
+                alt="Still River"
+              />
+            </Link>
           </div>
           <div className="hidden max-w-xl flex-grow items-center justify-between md:flex">
             {PAGES.map((page) => (
               <Link
                 href={page.href}
                 key={page.label}
-                className="basis-[150px] text-center text-slate-100 transition duration-300 hover:text-slate-300"
+                className="basis-[150px] text-center text-slate-300 transition duration-300 hover:text-indigo-400"
               >
                 {page.label}
               </Link>
@@ -38,7 +40,7 @@ const Navbar = () => {
           </div>
           <Link
             href="/login"
-            className="hidden px-10 text-right text-slate-100 transition duration-300 hover:text-slate-300 md:block"
+            className="hidden px-10 text-right text-slate-300 transition duration-300 hover:text-indigo-400 md:block"
           >
             Log In
           </Link>
@@ -49,7 +51,7 @@ const Navbar = () => {
             <FontAwesomeIcon icon={faBars} className="fa-xl text-slate-200" />
           </div>
         </div>
-        <div className="h-24 w-screen bg-gradient-to-b from-slate-950 to-slate-950/0"></div>
+        <div className="h-8 w-screen bg-gradient-to-b from-slate-950/20 to-slate-950/0"></div>
       </div>
       <div
         className={`fixed z-10 h-screen w-screen bg-slate-950/70 pt-3 backdrop-blur-sm transition-opacity duration-300 md:hidden ${isOpen ? "opacity-100" : "pointer-events-none opacity-0"}`}
@@ -60,7 +62,11 @@ const Navbar = () => {
         </div>
         <div className="z-10 h-full w-full">
           <div className="flex w-full justify-between px-10">
-            <div className="flex items-center justify-center">
+            <Link
+              href="/"
+              className="flex items-center justify-center"
+              onClick={() => setIsOpen(!isOpen)}
+            >
               <Image
                 src="./img/logo.png"
                 width={40}
@@ -71,7 +77,7 @@ const Navbar = () => {
               <h2 className="ml-4 inline text-2xl font-semibold text-slate-200 transition duration-300 hover:text-indigo-400">
                 The Still River
               </h2>
-            </div>
+            </Link>
             <FontAwesomeIcon
               icon={faX}
               className="fa-xl pt-3 text-slate-200"
@@ -84,6 +90,7 @@ const Navbar = () => {
                 <Link
                   href={page.href}
                   className="mx-14 my-3 block text-lg font-semibold text-slate-200 transition duration-300 hover:text-indigo-400"
+                  onClick={() => setIsOpen(!isOpen)}
                 >
                   <FontAwesomeIcon icon={page.icon} className="mr-4" />
                   {page.label}

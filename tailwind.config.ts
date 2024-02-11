@@ -16,6 +16,12 @@ const config: Config = {
         "hero-img": "url('./img/hero.png')",
         "gradient-hero": "radial-gradient(var(--tw-gradient-stops))",
       },
+      // variants: {
+      //   extend: {
+      //     backgroundColor: ["autofill"],
+      //     bordeColor: ["autofill"],
+      //   },
+      // },
     },
   },
   plugins: [require("tailwindcss-hero-patterns")],
