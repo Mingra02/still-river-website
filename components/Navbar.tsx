@@ -20,7 +20,7 @@ const Navbar = () => {
           <div className="px-10">
             <Link href="/">
               <Image
-                src="./img/logo.png"
+                src="/img/logo.png"
                 width={40}
                 height={40}
                 alt="Still River"
@@ -68,7 +68,7 @@ const Navbar = () => {
               onClick={() => setIsOpen(!isOpen)}
             >
               <Image
-                src="./img/logo.png"
+                src="/img/logo.png"
                 width={40}
                 height={40}
                 alt="Still River"
