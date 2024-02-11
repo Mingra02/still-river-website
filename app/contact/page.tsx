@@ -45,10 +45,12 @@ export default function Contact() {
       </div>
       <section className="m-auto -mb-6 mt-20 max-w-2xl overflow-hidden px-4 sm:mb-14 sm:mt-32">
         <h1 className="text-5xl font-semibold text-slate-100">
-          Let's work together
+          {"Let's work together"}
         </h1>
         <p className="mt-8 text-lg text-slate-300">
-          Fill out the form below and we''ll get back to you shortly.
+          {
+            "Fill out the form below and we'll get back to you as fast as we can."
+          }
         </p>
         <form
           action=""
