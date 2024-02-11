@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Flip, ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 type FormGroupProps = {
   label: string;
@@ -46,12 +48,10 @@ const EmailForm: React.FC = () => {
     setFormInfo({ ...formInfo, [e.target.name]: e.target.value });
   };
 
-  const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    console.log(formInfo);
-
-    try {
+    const sendEmail = async () => {
       const response = await fetch("/send_email.php", {
         method: "POST",
         headers: {
@@ -65,17 +65,37 @@ const EmailForm: React.FC = () => {
       }
 
       const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      console.error("Error:", error);
-    }
+      return data;
+    };
 
-    setFormInfo({});
+    toast
+      .promise(
+        sendEmail(),
+        {
+          pending: "Sending...",
+          success: "Message Sent! We'll be in touch shortly.",
+          error: "Something went wrong, please try again later.",
+        },
+        {
+          position: "top-center",
+          autoClose: 6500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Flip,
+        },
+      )
+      .then(() => {
+        setFormInfo({});
+      });
   };
 
   return (
     <form
-      onSubmit={submitForm}
+      onSubmit={handleSubmit}
       className="mt-6 grid w-full grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-x-12"
     >
       <FormGroup
@@ -110,6 +130,7 @@ const EmailForm: React.FC = () => {
           Send Message
         </button>
       </div>
+      <ToastContainer theme="dark" />
     </form>
   );
 };
