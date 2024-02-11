@@ -1,9 +1,12 @@
 "use client";
 
+import { useState } from "react";
+
 type FormGroupProps = {
   label: string;
   type: string;
   name: string;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   cols?: number;
 };
 
@@ -11,6 +14,7 @@ const FormGroup: React.FC<FormGroupProps> = ({
   label,
   type,
   name,
+  handleChange,
   cols = 1,
 }) => {
   return (
@@ -23,6 +27,7 @@ const FormGroup: React.FC<FormGroupProps> = ({
       <input
         type={type}
         name={name}
+        onChange={handleChange}
         className="peer rounded border border-white/10 bg-white/15 p-2 text-slate-400 transition autofill:bg-indigo-600 autofill:text-green-500 invalid:border-pink-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:invalid:ring-pink-500"
       />
       <p className="pointer-events-none text-sm text-pink-500 opacity-0 transition-opacity peer-invalid:pointer-events-auto peer-invalid:animate-pulse peer-invalid:opacity-100">
@@ -32,6 +37,82 @@ const FormGroup: React.FC<FormGroupProps> = ({
   );
 };
 
+const EmailForm: React.FC = () => {
+  const [formInfo, setFormInfo] = useState({} as Record<string, string>);
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    setFormInfo({ ...formInfo, [e.target.name]: e.target.value });
+  };
+
+  const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    console.log(formInfo);
+
+    try {
+      const response = await fetch("/send_email.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formInfo),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+
+    setFormInfo({});
+  };
+
+  return (
+    <form
+      onSubmit={submitForm}
+      className="mt-6 grid w-full grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-x-12"
+    >
+      <FormGroup
+        label="First name"
+        type="text"
+        name="given_name"
+        handleChange={handleChange}
+      />
+      <FormGroup
+        label="Last name"
+        type="text"
+        name="family_name"
+        handleChange={handleChange}
+      />
+      <FormGroup
+        label="Email"
+        type="email"
+        name="email"
+        cols={2}
+        handleChange={handleChange}
+      />
+      <div className="flex flex-col gap-2 sm:col-span-2">
+        <label className="text-sm text-slate-300">Message</label>
+        <textarea
+          name="message"
+          onChange={handleChange}
+          className="h-48 rounded border border-white/10 bg-white/15 p-2 text-slate-400 transition duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        ></textarea>
+      </div>
+      <div className="flex w-full justify-end text-right sm:col-span-1 sm:col-start-2 sm:w-auto">
+        <button className="mb-8 mt-4 flex w-full items-center justify-center rounded-md bg-indigo-500 px-6 py-2 font-semibold text-indigo-100 transition duration-200 hover:bg-indigo-600 focus:animate-pulse focus:bg-indigo-600 focus:outline-indigo-600 sm:mb-0 sm:w-auto">
+          Send Message
+        </button>
+      </div>
+    </form>
+  );
+};
 export default function Contact() {
   return (
     <>
@@ -52,23 +133,7 @@ export default function Contact() {
             "Fill out the form below and we'll get back to you as fast as we can."
           }
         </p>
-        <form
-          action=""
-          className="mt-6 grid w-full grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-x-12"
-        >
-          <FormGroup label="First name" type="text" name="given-name" />
-          <FormGroup label="Last name" type="text" name="family-name" />
-          <FormGroup label="Email" type="email" name="email" cols={2} />
-          <div className="flex flex-col gap-2 sm:col-span-2">
-            <label className="text-sm text-slate-300">Message</label>
-            <textarea className="h-48 rounded border border-white/10 bg-white/15 p-2 text-slate-400 transition duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
-          </div>
-          <div className="flex w-full justify-end text-right sm:col-span-1 sm:col-start-2 sm:w-auto">
-            <button className="mb-8 mt-4 flex w-full items-center justify-center rounded-md bg-indigo-500 px-6 py-2 font-semibold text-indigo-100 transition duration-200 hover:bg-indigo-600 focus:animate-pulse focus:bg-indigo-600 focus:outline-indigo-600 sm:mb-0 sm:w-auto">
-              Send Message
-            </button>
-          </div>
-        </form>
+        <EmailForm />
       </section>
     </>
   );

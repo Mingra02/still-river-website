@@ -1,0 +1,9 @@
+[11-Feb-2024 16:05:38 UTC] PHP Parse error:  syntax error, unexpected '!' in /home/u113756339/domains/the-still-river.com/public_html/send_email.php on line 53
+[11-Feb-2024 16:05:49 UTC] PHP Parse error:  syntax error, unexpected '!' in /home/u113756339/domains/the-still-river.com/public_html/send_email.php on line 53
+[11-Feb-2024 16:06:21 UTC] PHP Parse error:  syntax error, unexpected '!' in /home/u113756339/domains/the-still-river.com/public_html/send_email.php on line 53
+[11-Feb-2024 16:17:20 UTC] PHP Notice:  Undefined variable: response in /home/u113756339/domains/the-still-river.com/public_html/send_email.php on line 72
+[11-Feb-2024 16:21:08 UTC] PHP Parse error:  syntax error, unexpected '}', expecting end of file in /home/u113756339/domains/the-still-river.com/public_html/send_email.php on line 46
+[11-Feb-2024 16:34:46 UTC] PHP Parse error:  syntax error, unexpected '}', expecting ';' in /home/u113756339/domains/the-still-river.com/public_html/send_email.php on line 45
+[11-Feb-2024 16:34:50 UTC] PHP Parse error:  syntax error, unexpected '}', expecting ';' in /home/u113756339/domains/the-still-river.com/public_html/send_email.php on line 45
+[11-Feb-2024 16:34:56 UTC] PHP Parse error:  syntax error, unexpected '}', expecting ';' in /home/u113756339/domains/the-still-river.com/public_html/send_email.php on line 45
+[11-Feb-2024 16:35:24 UTC] PHP Parse error:  syntax error, unexpected '}', expecting ';' in /home/u113756339/domains/the-still-river.com/public_html/send_email.php on line 45

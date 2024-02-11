@@ -1,6 +1,7 @@
 {
   "name": "still-river",
   "version": "0.1.0",
+  "proxy": "https://www.the-still-river.com",
   "private": true,
   "scripts": {
     "dev": "next dev",
