@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Flip, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -10,6 +10,7 @@ type FormGroupProps = {
   name: string;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   cols?: number;
+  formInfo: Record<string, string>;
 };
 
 const FormGroup: React.FC<FormGroupProps> = ({
@@ -18,6 +19,7 @@ const FormGroup: React.FC<FormGroupProps> = ({
   name,
   handleChange,
   cols = 1,
+  formInfo,
 }) => {
   return (
     <div
@@ -30,6 +32,7 @@ const FormGroup: React.FC<FormGroupProps> = ({
         type={type}
         name={name}
         onChange={handleChange}
+        value={name in formInfo ? formInfo[name] : ""}
         className="peer rounded border border-white/10 bg-white/15 p-2 text-slate-400 transition autofill:bg-indigo-600 autofill:text-green-500 invalid:border-pink-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:invalid:ring-pink-500"
       />
       <p className="pointer-events-none text-sm text-pink-500 opacity-0 transition-opacity peer-invalid:pointer-events-auto peer-invalid:animate-pulse peer-invalid:opacity-100">
@@ -40,7 +43,7 @@ const FormGroup: React.FC<FormGroupProps> = ({
 };
 
 const EmailForm: React.FC = () => {
-  const [formInfo, setFormInfo] = useState({} as Record<string, string>);
+  const [formInfo, setFormInfo] = useState<Record<string, string>>({});
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -73,7 +76,7 @@ const EmailForm: React.FC = () => {
         sendEmail(),
         {
           pending: "Sending...",
-          success: "Message Sent! We'll be in touch shortly.",
+          success: "Message sent! We'll be in touch shortly.",
           error: "Something went wrong, please try again later.",
         },
         {
@@ -103,12 +106,14 @@ const EmailForm: React.FC = () => {
         type="text"
         name="given_name"
         handleChange={handleChange}
+        formInfo={formInfo}
       />
       <FormGroup
         label="Last name"
         type="text"
         name="family_name"
         handleChange={handleChange}
+        formInfo={formInfo}
       />
       <FormGroup
         label="Email"
@@ -116,12 +121,14 @@ const EmailForm: React.FC = () => {
         name="email"
         cols={2}
         handleChange={handleChange}
+        formInfo={formInfo}
       />
       <div className="flex flex-col gap-2 sm:col-span-2">
         <label className="text-sm text-slate-300">Message</label>
         <textarea
           name="message"
           onChange={handleChange}
+          value={formInfo.message || ""}
           className="h-48 rounded border border-white/10 bg-white/15 p-2 text-slate-400 transition duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
         ></textarea>
       </div>
@@ -134,6 +141,7 @@ const EmailForm: React.FC = () => {
     </form>
   );
 };
+
 export default function Contact() {
   return (
     <>

@@ -31,7 +31,7 @@ function sendEmail($data) {
     $mail->setFrom('michael@the-still-river.com', 'Michael Ingram');
     $mail->addReplyTo($data->email, $data->name);
     $mail->addAddress('michael@the-still-river.com', 'Michael Ingram');
-    $mail->Subject = 'New message from your website';
+    $mail->Subject = 'Still River Contact Form Submission from ' . $data->name;
     $mail->isHTML(false);
     $mail->Body = "Name: {$data->name}\nEmail: {$data->email}\nMessage: {$data->message}";
 
