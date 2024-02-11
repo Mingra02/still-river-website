@@ -35,7 +35,7 @@ const FormGroup: React.FC<FormGroupProps> = ({
 export default function Contact() {
   return (
     <>
-      <div className="absolute bottom-0 top-0 isolate -z-10 m-auto -mb-[200px] w-screen overflow-hidden lg:mb-0">
+      <div className="absolute bottom-0 top-0 isolate -z-10 m-auto -mb-[500px] w-screen overflow-hidden lg:mb-0">
         <div className="absolute -left-48 -top-20 isolate -z-10 h-[500px] w-[500px] bg-gradient-radial from-rose-600/25 to-slate-950/0 xl:left-[15%] xl:top-0"></div>
         <div className="absolute -left-24 top-[30%] -z-10 h-[725px] w-[725px] bg-gradient-radial from-fuchsia-800/25 to-slate-950/0 xl:left-[20%]"></div>
         <div className="absolute left-24 top-16 -z-10 h-[630px] w-[630px] bg-gradient-radial from-indigo-950/90 to-slate-950/0 xl:left-[30%]"></div>

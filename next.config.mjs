@@ -6,6 +6,7 @@ const pathPrefix = process.env.PATHPREFIX || undefined;
 const nextConfig = {
   output: "export",
   // distDir: "./out",
+  trailingSlash: true,
   images: {
     unoptimized: true,
   },
