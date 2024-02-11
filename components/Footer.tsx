@@ -11,24 +11,29 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import Link from "next/link";
 
+type LinkProps = {
+  text: string;
+  href: string;
+};
+
 const FooterLinkGroup = ({
   title,
   links,
 }: {
   title: string;
-  links: string[];
+  links: LinkProps[];
 }) => {
   return (
     <div className="flex flex-col gap-2">
       <h3 className="font-bold text-slate-200">{title}</h3>
       {links.map((link, index) => (
-        <a
+        <Link
           key={index}
           className="text-slate-400 hover:text-slate-300"
-          href={link}
+          href={link.href}
         >
-          {link}
-        </a>
+          {link.text}
+        </Link>
       ))}
     </div>
   );
@@ -83,12 +88,35 @@ const Footer = () => {
       <div className="mx-10 h-0 border-t border-slate-600"></div>
       <div className="align-center lg:gap-y-p4 m-auto mx-10 mt-8 grid grid-cols-2 gap-8 px-3 lg:mb-8 lg:grid-cols-4 xl:mb-32 xl:grid-cols-7">
         <FooterLinkGroup
-          title="Solitions"
-          links={["Service", "Portfolio", "Contact Us"]}
+          title="Solutions"
+          links={[
+            { text: "Service", href: "/service" },
+            { text: "Portfolio", href: "/portfolio" },
+            { text: "Contact Us", href: "/contact" },
+          ]}
         />
-        <FooterLinkGroup title="Community" links={["Blog", "Forums"]} />
-        <FooterLinkGroup title="Company" links={["About", "Team", "Careers"]} />
-        <FooterLinkGroup title="Legal" links={["Privacy", "Terms"]} />
+        <FooterLinkGroup
+          title="Community"
+          links={[
+            { text: "Blog", href: "/blog" },
+            { text: "Forums", href: "/forums" },
+          ]}
+        />
+        <FooterLinkGroup
+          title="Company"
+          links={[
+            { text: "About", href: "/about" },
+            { text: "Team", href: "/team" },
+            { text: "Careers", href: "/careers" },
+          ]}
+        />
+        <FooterLinkGroup
+          title="Legal"
+          links={[
+            { text: "Privacy", href: "/privacy" },
+            { text: "Terms", href: "/terms" },
+          ]}
+        />
         <Newsletter />
       </div>
       <div className="mx-10 h-0 border-t border-slate-600"></div>
