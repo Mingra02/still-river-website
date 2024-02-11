@@ -82,7 +82,7 @@ export default function Home() {
       >
         <div className="absolute -left-48 -top-20 -z-10 h-[500px] w-[500px] bg-gradient-radial from-slate-800/100 to-slate-800/0"></div>
         <div className="absolute -right-48 bottom-36 -z-10 h-[700px] w-[700px] bg-gradient-radial from-slate-800/100 to-slate-950/0 md:bottom-0 lg:-bottom-48"></div>
-        <h2 className="m-auto w-full text-center text-4xl font-semibold text-slate-100">
+        <h2 className="m-auto w-full text-center text-4xl font-semibold text-slate-100 md:mb-12">
           Our Services
         </h2>
         <div className="mt-6 grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3">
