@@ -13,6 +13,10 @@ import PortfolioCard from "@/components/PortfolioCard";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import HeroImage from "@/public/img/hero.png";
+import EasyTunes from "@/public/img/easytunes.jpg";
+import BudgetPro from "@/public/img/budgetpro.jpg";
+
 export default function Home() {
   const [hasScrolled, setHasScrolled] = useState(false);
 
@@ -32,9 +36,11 @@ export default function Home() {
     <>
       <div className="relative m-auto h-[85vh] w-full">
         <Image
-          src="/img/hero.png"
+          src={HeroImage}
           alt="The Still River"
           fill
+          placeholder="blur"
+          priority={true}
           className="absolute inset-0 -z-20 -mt-16 h-full w-full object-cover brightness-[40%]"
         />
         <div className="absolute inset-0 -z-20 -mt-16 bg-slate-950 opacity-80 mix-blend-color"></div>
@@ -96,14 +102,14 @@ export default function Home() {
         </h2>
         <div className="grid grid-cols-1 gap-12 px-8 lg:grid-cols-2 xl:gap-24">
           <PortfolioCard
-            imgSrc="/img/easytunes.jpg"
+            imgSrc={EasyTunes}
             title="EasyTunes"
             description="EasyTunes is a generative music model for creating simple music
           tracks. It is designed to work on consumer-grade hardware and can
           create a song in less than a minute and a half on just a CPU."
           />
           <PortfolioCard
-            imgSrc="/img/budgetpro.jpg"
+            imgSrc={BudgetPro}
             title="BudgetPro"
             description="BudgetPro is an advanced budgeting app that creates budgets based on the user's income, calculates tax witholdings, loan payoffs, and more."
           />

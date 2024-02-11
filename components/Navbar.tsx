@@ -10,6 +10,8 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faX } from "@fortawesome/free-solid-svg-icons";
 
+import LogoImage from "@/public/img/logo.png";
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -20,10 +22,11 @@ const Navbar = () => {
           <div className="px-10">
             <Link href="/">
               <Image
-                src="/img/logo.png"
+                src={LogoImage}
                 width={40}
                 height={40}
                 alt="Still River"
+                placeholder="blur"
               />
             </Link>
           </div>
@@ -68,11 +71,12 @@ const Navbar = () => {
               onClick={() => setIsOpen(!isOpen)}
             >
               <Image
-                src="/img/logo.png"
+                src={LogoImage}
                 width={40}
                 height={40}
                 alt="Still River"
                 className="inline"
+                placeholder="blur"
               />
               <h2 className="ml-4 inline text-2xl font-semibold text-slate-200 transition duration-300 hover:text-indigo-400">
                 The Still River

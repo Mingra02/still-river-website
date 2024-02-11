@@ -1,9 +1,9 @@
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import TertiaryButton from "./TertiaryButton";
 
 interface PortfolioCardProps {
-  imgSrc: string;
+  imgSrc: StaticImageData;
   title: string;
   description: string;
 }
