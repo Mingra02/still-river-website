@@ -13,9 +13,9 @@ import PortfolioCard from "@/components/PortfolioCard";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import HeroImage from "@/public/img/hero.png";
-import EasyTunes from "@/public/img/easytunes.jpg";
-import BudgetPro from "@/public/img/budgetpro.jpg";
+import HeroImage from "@/public/img/hero.webp";
+import EasyTunes from "@/public/img/easytunes.webp";
+import BudgetPro from "@/public/img/budgetpro.webp";
 
 export default function Home() {
   const [hasScrolled, setHasScrolled] = useState(false);

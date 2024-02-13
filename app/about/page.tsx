@@ -1,10 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import AboutImage1 from "../../public/img/about1.jpg";
-import AboutImage2 from "../../public/img/about2.jpg";
-import AboutImage3 from "../../public/img/about3.jpg";
-import AboutImage4 from "../../public/img/about4.jpg";
+import AboutImage1 from "../../public/img/about1.webp";
+import AboutImage2 from "../../public/img/about2.webp";
+import AboutImage3 from "../../public/img/about3.webp";
+import AboutImage4 from "../../public/img/about4.webp";
 
 import React from "react";
 
