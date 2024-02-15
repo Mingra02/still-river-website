@@ -24,6 +24,9 @@ const config: Config = {
       // },
     },
   },
-  plugins: [require("tailwindcss-hero-patterns")],
+  plugins: [
+    require("tailwindcss-hero-patterns"),
+    require("@tailwindcss/typography"),
+  ],
 };
 export default config;

@@ -19,9 +19,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="h-full w-screen overflow-x-hidden bg-slate-950">
+      <body className="overflow-x-hidden bg-slate-950">
         <Navbar />
-        <div className="h-full w-screen overflow-hidden">{children}</div>
+        {children}
         <Footer />
       </body>
     </html>

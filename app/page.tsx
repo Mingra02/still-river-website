@@ -34,17 +34,20 @@ export default function Home() {
 
   return (
     <>
-      <div className="relative m-auto h-[85vh] w-full">
-        <Image
-          src={HeroImage}
-          alt="The Still River"
-          fill
-          placeholder="blur"
-          priority={true}
-          className="absolute inset-0 -z-20 -mt-16 h-full w-full object-cover brightness-[40%]"
-        />
-        <div className="absolute inset-0 -z-20 -mt-16 bg-slate-950 opacity-80 mix-blend-color"></div>
-        <div className="absolute inset-0 -z-20 -mt-16 bg-gradient-radial from-slate-950/0 to-slate-950/100"></div>
+      <section className="max-w-full overflow-clip">
+        <div className="relative m-auto h-[85vh] max-w-full">
+          <div className="absolute inset-0 -z-20 -mt-16 h-full object-cover brightness-[40%]">
+            <Image
+              src={HeroImage}
+              alt="The Still River"
+              fill
+              placeholder="blur"
+              priority={true}
+            />
+          </div>
+          <div className="absolute inset-0 -z-20 -mt-16 max-w-full overflow-hidden bg-slate-950 opacity-80 mix-blend-color"></div>
+          <div className="absolute inset-0 -z-20 -mt-16 max-w-full overflow-hidden bg-gradient-radial from-slate-950/0 to-slate-950/100"></div>
+        </div>
         <div className="absolute inset-0 m-auto max-w-screen-2xl">
           <h1 className="m-auto mt-[25vh] text-center text-2xl font-bold text-slate-100 sm:text-5xl md:text-7xl xl:mt-[40vh] ">
             Where Data Meets Strategy
@@ -76,24 +79,29 @@ export default function Home() {
             />
           </div>
         </div>
-      </div>
+      </section>
+
       <section
-        className={`relative m-auto max-w-7xl transition-all duration-1000 ${hasScrolled ? "-mt-16 opacity-100" : "mt-20 opacity-0"}`}
+        className={`transition-all duration-1000 ${hasScrolled ? "-mt-16 opacity-100" : "mt-20 opacity-0"}`}
       >
-        <div className="absolute -left-48 -top-20 -z-10 h-[500px] w-[500px] bg-gradient-radial from-slate-800/100 to-slate-800/0"></div>
-        <div className="absolute -right-48 bottom-36 -z-10 h-[700px] w-[700px] bg-gradient-radial from-slate-800/100 to-slate-950/0 md:bottom-0 lg:-bottom-48"></div>
-        <h2 className="m-auto w-full text-center text-4xl font-semibold text-slate-100 md:mb-12">
-          Our Services
-        </h2>
-        <div className="mt-6 grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3">
-          {SKILLS.map((skill, index) => (
-            <Skill
-              key={index}
-              icon={skill.icon}
-              title={skill.title}
-              description={skill.description}
-            />
-          ))}
+        <div className="relative w-screen max-w-full overflow-x-clip">
+          <div className="absolute -top-20 left-[10%] -z-10 h-[500px] w-[500px] transform overflow-x-clip bg-gradient-radial from-slate-800/100 to-slate-800/0 xl:left-[25%]"></div>
+          <div className="absolute right-[15%] top-[900px] -z-10 h-[700px] w-[700px] translate-x-48 transform overflow-x-clip bg-gradient-radial from-slate-800/100 to-slate-950/0 md:top-[400px] lg:top-[220px] xl:right-[25%]"></div>
+        </div>
+        <div className="m-auto max-w-7xl">
+          <h2 className="m-auto w-full text-center text-4xl font-semibold text-slate-100 md:mb-12">
+            Our Services
+          </h2>
+          <div className="mt-6 grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3">
+            {SKILLS.map((skill, index) => (
+              <Skill
+                key={index}
+                icon={skill.icon}
+                title={skill.title}
+                description={skill.description}
+              />
+            ))}
+          </div>
         </div>
       </section>
       <section className="relative m-auto mt-24 max-w-7xl lg:mb-24 lg:mt-48">
