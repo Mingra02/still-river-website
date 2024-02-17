@@ -1,6 +1,10 @@
 ---
 title: "Shrek Enthusiast Goes to Extremes: Man Combines DNA with Onion Using CRISPR"
-date: "2024-02-14"
+date: "2023-05-23"
+author: "Michael Ingram"
+position: "Data Scientist"
+tags: ["Data Science"]
+picture: "/blog/img/shrek.jpg"
 ---
 
 In a bizarre and unprecedented act of devotion to the iconic animated character Shrek, a man recently made headlines by attempting to merge his own DNA with that of an onion. The self-proclaimed Shrek enthusiast, whose identity remains undisclosed, reportedly used CRISPR gene-editing technology in pursuit of his peculiar dream, believing that "ogres are like onions."

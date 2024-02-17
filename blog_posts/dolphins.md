@@ -1,6 +1,10 @@
 ---
 title: "Dolphins Enlisted in the Fight Against Eco-Terrorism in the Pacific Northwest"
-date: "2023-06-17"
+date: "2023-12-25"
+author: "Michael Ingram"
+position: "Data Scientist"
+tags: ["Machine Learning"]
+picture: "/blog/img/dolphins.jpg"
 ---
 
 In an extraordinary effort to combat eco-terrorism in the Pacific Northwest, a cutting-edge program has been initiated to train an army of dolphins for surveillance and intervention purposes. The marine mammals, known for their intelligence and adaptability, are being enlisted to safeguard the region's delicate ecosystems against acts of sabotage and environmental destruction.

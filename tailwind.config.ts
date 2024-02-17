@@ -26,6 +26,7 @@ const config: Config = {
   },
   plugins: [
     require("tailwindcss-hero-patterns"),
+    require("@tailwindcss/forms"),
     require("@tailwindcss/typography"),
   ],
 };
