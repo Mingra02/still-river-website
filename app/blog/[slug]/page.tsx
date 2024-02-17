@@ -5,8 +5,17 @@ import {
   getAuthorTitle,
   getTagColors,
   formatDate,
-  getPostContent,
 } from "@/components/blogUtils";
+import fs from "fs";
+import matter from "gray-matter";
+
+const getPostContent = (slug: string) => {
+  const folder = "./blog_posts/";
+  const file = `${folder}${slug}.md`;
+  const content = fs.readFileSync(file, "utf8");
+  const matterResult = matter(content);
+  return matterResult;
+};
 
 export default function BlogPost(props: any) {
   const slug = props.params.slug;

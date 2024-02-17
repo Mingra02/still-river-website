@@ -1,9 +1,8 @@
-// "use client";
+"use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { PostMetadata } from "@/components/PostMetadata";
-import getPostMetadata from "@/components/getPostMetadata";
 import Image from "next/image";
 import {
   getAuthorTitle,
@@ -69,46 +68,62 @@ const PostPreview = (props: PostMetadata) => {
 };
 
 export default function Blog() {
-  // const [searchTerm, setSearchTerm] = useState("");
-  // const [author, setAuthor] = useState("");
-  // const [date, setDate] = useState("");
-  // const [beforeAfter, setBeforeAfter] = useState("");
+  const [posts, setPosts] = useState([]);
+  const [filteredPosts, setFilteredPosts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [author, setAuthor] = useState("");
+  const [date, setDate] = useState("");
+  const [beforeAfter, setBeforeAfter] = useState("");
 
-  let postMetadata = getPostMetadata();
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const res = await fetch("/api/blog");
+      const data = await res.json();
+      setPosts(data);
+    };
 
-  postMetadata = postMetadata
-    // .filter((post: PostMetadata) => {
-    //   return (
-    //     post.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
-    //     post.author.toLowerCase().includes(author.toLowerCase()) &&
-    //     (beforeAfter === "before" ? post.date <= date : post.date >= date)
-    //   );
-    // })
-    .sort((a: PostMetadata, b: PostMetadata) => {
-      return b.date.localeCompare(a.date);
-    });
+    fetchPosts();
+  }, []);
 
-  const postPreviews = postMetadata.map((post: PostMetadata) => (
+  useEffect(() => {
+    const result = posts
+      .filter((post: PostMetadata) => {
+        return (
+          (post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            post.tags.some((tag) =>
+              tag.toLowerCase().includes(searchTerm.toLowerCase()),
+            ) ||
+            post.content.toLowerCase().includes(searchTerm.toLowerCase())) &&
+          post.author.toLowerCase().includes(author.toLowerCase()) &&
+          (beforeAfter === "before" ? post.date <= date : post.date >= date)
+        );
+      })
+      .sort((a: PostMetadata, b: PostMetadata) => {
+        return b.date.localeCompare(a.date);
+      });
+    setFilteredPosts(result);
+  }, [posts, searchTerm, author, date, beforeAfter]);
+  const postPreviews = filteredPosts.map((post: PostMetadata) => (
     <PostPreview key={post.slug} {...post} />
   ));
 
-  // const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   setSearchTerm(event.target.value);
-  // };
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+  };
 
-  // const handleAuthorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   setAuthor(event.target.value);
-  // };
+  const handleAuthorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setAuthor(event.target.value);
+  };
 
-  // const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   setDate(event.target.value);
-  // };
+  const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setDate(event.target.value);
+  };
 
-  // const handleBeforeAfterChange = (
-  //   event: React.ChangeEvent<HTMLInputElement>,
-  // ) => {
-  //   setBeforeAfter(event.target.value);
-  // };
+  const handleBeforeAfterChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    setBeforeAfter(event.target.value);
+  };
 
   return (
     <>
@@ -130,22 +145,30 @@ export default function Blog() {
             <p className="mt-8 text-slate-400">Search</p>
             <input
               type="text"
+              onChange={handleSearchChange}
+              value={searchTerm}
               className="w-full items-center justify-center rounded border border-white/10 bg-white/15 p-2 text-slate-400 transition duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
             <p className="mt-8 text-slate-400">Author</p>
             <input
               type="text"
+              value={author}
+              onChange={handleAuthorChange}
               className="w-full items-center justify-center rounded border border-white/10 bg-white/15 p-2 text-slate-400 transition duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
             <p className="mt-8 text-slate-400">Date</p>
             <input
               type="date"
+              onChange={handleDateChange}
+              value={date}
               className="w-full items-center justify-center rounded border border-white/10 bg-white/15 p-2 text-slate-400 transition duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
             <div className="flex">
               <label className="my-3 flex cursor-pointer items-center rounded-md px-3 py-2 text-slate-400 accent-indigo-500 transition-colors">
                 <input
                   type="radio"
+                  value={beforeAfter}
+                  onChange={handleBeforeAfterChange}
                   name="date_before"
                   className="mr-2 border-white/20 bg-white/15 checked:bg-none focus:bg-none focus:ring-0 focus:ring-offset-0"
                 />
@@ -154,6 +177,8 @@ export default function Blog() {
               <label className="my-3 flex cursor-pointer items-center rounded-md px-3 py-2 text-slate-400 accent-indigo-500 transition-colors">
                 <input
                   type="radio"
+                  value={beforeAfter}
+                  onChange={handleBeforeAfterChange}
                   name="date_before"
                   className="checked:bg- peer mr-2 border-white/20 bg-white/15 focus:bg-none focus:ring-0 focus:ring-offset-0"
                 />

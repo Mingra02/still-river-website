@@ -1,6 +1,3 @@
-import fs from "fs";
-import matter from "gray-matter";
-
 const authorDict: { [key: string]: { image: string; role: string } } = {
   "Michael Ingram": {
     image: "/blog/img/michael-ingram.jpg",
@@ -40,15 +37,6 @@ export function formatDate(dateString: string): string {
   };
   return new Intl.DateTimeFormat("en-US", options).format(date);
 }
-
-export const getPostContent = (slug: string) => {
-  const folder = "./blog_posts/";
-  const file = `${folder}${slug}.md`;
-  const content = fs.readFileSync(file, "utf8");
-  const matterResult = matter(content);
-  return matterResult;
-};
-
 export function clipPostContent(content: string): string {
   const maxLength = 200;
   if (content.length > maxLength) {
