@@ -32,27 +32,27 @@ export default function BlogPost(props: any) {
         <div className="absolute -right-24 top-96 -z-10 h-[250px] w-[250px] bg-gradient-radial from-teal-700/45 to-slate-950/0 xl:left-[70%]"></div>
       </div>
       <section className="m-auto mb-6 mt-20 w-[95%] max-w-7xl rounded-lg px-4 backdrop-blur sm:mt-32 sm:border sm:border-white/20 sm:bg-white/15 sm:px-10 lg:mb-16 ">
-        <h1 className="m-auto mt-12 max-w-3xl text-4xl font-bold text-slate-100">
+        <h1 className="m-auto mt-12 max-w-3xl text-2xl font-bold text-slate-100 md:text-4xl">
           {post.data.title}
         </h1>
-        <div className="m-auto mt-8 grid max-w-3xl grid-cols-2 items-center">
+        <div className="m-auto mt-4 grid max-w-3xl grid-cols-[auto_1fr] items-center md:mt-8">
           <div className="flex items-center">
             <Image
               src={getAuthorTitle(post.data.author).image}
               alt={post.data.author}
               width={64}
               height={64}
-              className="h-16 w-16 rounded-full"
+              className="h-12 w-12 rounded-full sm:h-16 sm:w-16"
             />
             <div className="ml-4">
               <p className="font-bold text-slate-300">{post.data.author}</p>
-              <p className="text-slate-400">
+              <p className="text-sm text-slate-400 sm:text-base">
                 {getAuthorTitle(post.data.author).role}
               </p>
             </div>
           </div>
-          <div className="flex flex-wrap items-baseline justify-end gap-x-5 gap-y-3">
-            <p className="flex-shrink-0 flex-grow-0 text-slate-300">
+          <div className="flex flex-col flex-wrap items-end justify-end gap-x-5">
+            <p className="order-last flex-shrink-0 flex-grow-0 text-sm text-slate-400 sm:text-base">
               {formatDate(post.data.date)}
             </p>
             {post.data.tags.map((tag: string) => {
@@ -76,7 +76,7 @@ export default function BlogPost(props: any) {
             className="object-cover"
           />
         </div>
-        <article className="prose prose-slate prose-invert m-auto lg:prose-xl prose-a:no-underline prose-a:transition hover:prose-a:text-slate-400 prose-pre:bg-slate-200 prose-pre:text-slate-800">
+        <article className="prose prose-slate prose-invert m-auto pb-6 lg:prose-xl prose-a:no-underline prose-a:transition hover:prose-a:text-slate-400 prose-pre:bg-slate-200 prose-pre:text-slate-800 md:pb-12">
           <Markdown>{post.content}</Markdown>
         </article>
       </section>

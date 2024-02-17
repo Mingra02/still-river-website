@@ -29,7 +29,8 @@ export function getTagColors(tag: string): {
 }
 
 export function formatDate(dateString: string): string {
-  const date = new Date(dateString);
+  const [year, month, day] = dateString.split("-").map(Number);
+  const date = new Date(year, month - 1, day);
   const options: Intl.DateTimeFormatOptions = {
     year: "numeric",
     month: "long",
@@ -37,6 +38,7 @@ export function formatDate(dateString: string): string {
   };
   return new Intl.DateTimeFormat("en-US", options).format(date);
 }
+
 export function clipPostContent(content: string): string {
   const maxLength = 200;
   if (content.length > maxLength) {
