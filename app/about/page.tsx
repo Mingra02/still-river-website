@@ -5,8 +5,25 @@ import AboutImage1 from "../../public/img/about1.webp";
 import AboutImage2 from "../../public/img/about2.webp";
 import AboutImage3 from "../../public/img/about3.webp";
 import AboutImage4 from "../../public/img/about4.webp";
+import Michael from "../../public/blog/img/michael-ingram.jpg";
+import PlaceholderFemale from "../../public/img/placeholder-female.webp";
+import PlaceholderMale from "../../public/img/placeholder-male.webp";
+import JoinOurTeam from "../../public/img/join_our_team.webp";
 
 import React from "react";
+import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faGithub,
+  faLinkedin,
+  faXTwitter,
+} from "@fortawesome/free-brands-svg-icons";
+import {
+  faArrowLeft,
+  faArrowRight,
+  faCircleCheck,
+  faL,
+} from "@fortawesome/free-solid-svg-icons";
 
 interface ValueProps {
   title: string;
@@ -141,6 +158,219 @@ export default function About() {
           />
         </div>
       </section>
+      <section className="m-auto w-full max-w-7xl">
+        <h3 className="pl-8 text-3xl font-bold text-slate-200 xl:pl-20">
+          Our Team
+        </h3>
+        <div className="m-auto mt-16 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <div className="m-auto h-full max-w-xs">
+            <Link href="/team/michael-ingram">
+              <Image
+                src={Michael}
+                alt="Michael Ingram"
+                className="rounded-lg shadow-lg brightness-75 drop-shadow-lg"
+                placeholder="blur"
+              />
+            </Link>
+            <Link href="/team/michael-ingram">
+              <h4 className="mt-4 text-xl font-bold text-slate-200 transition-colors hover:text-indigo-500">
+                Michael Ingram
+              </h4>
+            </Link>
+            <p className="mtext-sm text-slate-400">Data Scientist</p>
+            <p className="mt-4 text-slate-400">
+              Michael is a seasoned data scientist with a passion for leveraging
+              data to drive strategic business decisions. He has a wealth of
+              experience in predictive analytics, machine learning, and
+              developing custom data applications.
+            </p>
+            <div className="mt-4 flex items-center justify-start gap-5">
+              <Link href="http://www.twitter.com/">
+                <FontAwesomeIcon
+                  icon={faXTwitter}
+                  className="fa-2xl text-slate-400"
+                />
+              </Link>
+              <Link href="http://www.linkedin.com/">
+                <FontAwesomeIcon
+                  icon={faLinkedin}
+                  className="fa-2xl text-slate-400"
+                />
+              </Link>
+              <Link href="http://www.github.com/">
+                <FontAwesomeIcon
+                  icon={faGithub}
+                  className="fa-2xl text-slate-400"
+                />
+              </Link>
+            </div>
+          </div>
+          <div className="m-auto h-full max-w-xs">
+            <Image
+              src={PlaceholderFemale}
+              alt="Placeholder Image of Ting Guo"
+              className="rounded-lg shadow-lg brightness-75 drop-shadow-lg"
+              placeholder="blur"
+            />
+            <h4 className="mt-4 text-xl font-bold text-slate-200">Ting Guo</h4>
+            <p className="mtext-sm text-slate-400">CFO</p>
+            <p className="mt-4 text-slate-400">
+              Ting is a seasoned financial professional with a passion for
+              leveraging data to drive strategic business decisions. She has a
+              wealth of experience in predictive analytics, machine learning,
+              and developing custom data applications.
+            </p>
+            <div className="mt-4 flex items-center justify-start gap-5">
+              <Link href="http://www.twitter.com/">
+                <FontAwesomeIcon
+                  icon={faXTwitter}
+                  className="fa-2xl text-slate-400"
+                />
+              </Link>
+              <Link href="http://www.linkedin.com/">
+                <FontAwesomeIcon
+                  icon={faLinkedin}
+                  className="fa-2xl text-slate-400"
+                />
+              </Link>
+              <Link href="http://www.github.com/">
+                <FontAwesomeIcon
+                  icon={faGithub}
+                  className="fa-2xl text-slate-400"
+                />
+              </Link>
+            </div>
+          </div>
+          <div className="m-auto h-full max-w-xs">
+            <Image
+              src={PlaceholderMale}
+              alt="Placeholder Image of Open Position"
+              className="rounded-lg shadow-lg brightness-75 drop-shadow-lg"
+              placeholder="blur"
+            />
+            <h4 className="mt-4 text-xl font-bold text-slate-200">
+              Open Position
+            </h4>
+            <p className="mtext-sm text-slate-400">CHO</p>
+            <p className="mt-4 text-slate-400">
+              We are currently looking for a seasoned professional to join our
+              team as a Chief Happiness Officer. If you are passionate about
+              leveraging data to drive strategic business decisions, we would
+              love to hear from you. Applicants should have a wealth of
+              experience in predictive analytics, machine learning, and
+              developing custom data applications.
+            </p>
+            <div className="mt-4 flex items-center justify-start gap-5">
+              <Link href="http://www.twitter.com/">
+                <FontAwesomeIcon
+                  icon={faXTwitter}
+                  className="fa-2xl text-slate-400"
+                />
+              </Link>
+              <Link href="http://www.linkedin.com/">
+                <FontAwesomeIcon
+                  icon={faLinkedin}
+                  className="fa-2xl text-slate-400"
+                />
+              </Link>
+              <Link href="http://www.github.com/">
+                <FontAwesomeIcon
+                  icon={faGithub}
+                  className="fa-2xl text-slate-400"
+                />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div className="relative h-full w-full">
+        <div className="absolute -top-[35%] left-0 right-0 isolate -z-10 m-auto h-full w-screen overflow-visible overflow-x-clip lg:mb-0">
+          <div className="absolute -left-48 -top-20 isolate -z-10 h-[500px] w-[500px] bg-gradient-radial from-rose-600/25 to-slate-950/0 xl:left-[15%] xl:top-0"></div>
+          <div className="absolute -left-24 top-[30%] -z-10 h-[725px] w-[725px] bg-gradient-radial from-fuchsia-800/25 to-slate-950/0 xl:left-[20%]"></div>
+          <div className="absolute left-24 top-16 -z-10 h-[630px] w-[630px] bg-gradient-radial from-indigo-950/90 to-slate-950/0 xl:left-[30%]"></div>
+          <div className="absolute right-48 top-64 isolate -z-10 h-[500px] w-[500px] bg-gradient-radial from-blue-800/35 to-slate-950/0 xl:left-[50%]"></div>
+          <div className="absolute right-0 top-0 -z-10 h-[350px] w-[350px] bg-gradient-radial from-sky-600/45 to-slate-950/0 xl:left-[63%]"></div>
+          <div className="absolute -right-24 top-96 -z-10 h-[250px] w-[250px] bg-gradient-radial from-teal-700/45 to-slate-950/0 xl:left-[70%]"></div>
+        </div>
+        <section className="relative m-auto my-36 grid w-full max-w-2xl grid-cols-1 place-items-center justify-center overflow-visible rounded-xl border border-white/10 bg-white/5 p-10 shadow-md drop-shadow-md backdrop-blur-md lg:max-w-6xl lg:grid-cols-[auto_1fr] lg:place-items-start lg:justify-start lg:gap-16">
+          <Image
+            src={JoinOurTeam}
+            width={350}
+            alt="Hands in the middle of a huddle."
+            className="h-[300px] rounded-lg object-cover text-center shadow-md"
+            placeholder="blur"
+          />
+          <div>
+            <h2 className="mt-4 w-full text-center text-3xl font-bold text-slate-200 lg:mt-0 lg:text-left">
+              Join our team
+            </h2>
+            <p className="mt-4 text-slate-300">
+              Join our dynamic team and turn your passion for data science into
+              a rewarding career.
+            </p>
+            <ul className="mb-14 mt-6 grid w-full grid-cols-1 gap-x-2 gap-y-3 font-semibold sm:grid-cols-2 sm:gap-y-6">
+              <li className="text-slate-300">
+                <FontAwesomeIcon
+                  icon={faCircleCheck}
+                  className="text-slate-300"
+                />
+                <span className="ml-4 text-slate-300">
+                  Competitive Salaries
+                </span>
+              </li>
+              <li className="text-slate-300">
+                <FontAwesomeIcon
+                  icon={faCircleCheck}
+                  className="text-slate-300"
+                />
+                <span className="ml-4 text-slate-300">Flexible Work Hours</span>
+              </li>
+              <li className="text-slate-300">
+                <FontAwesomeIcon
+                  icon={faCircleCheck}
+                  className="text-slate-300"
+                />
+                <span className="ml-4 text-slate-300">
+                  Professional Development
+                </span>
+              </li>
+              <li className="text-slate-300">
+                <FontAwesomeIcon
+                  icon={faCircleCheck}
+                  className="text-slate-300"
+                />
+                <span className="ml-4 text-slate-300">
+                  Health and Wellness Benefits
+                </span>
+              </li>
+              <li className="text-slate-300">
+                <FontAwesomeIcon
+                  icon={faCircleCheck}
+                  className="text-slate-300"
+                />
+                <span className="ml-4 text-slate-300">
+                  Collaborative Work Environment
+                </span>
+              </li>
+              <li className="text-slate-300">
+                <FontAwesomeIcon
+                  icon={faCircleCheck}
+                  className="text-slate-300"
+                />
+                <span className="ml-4 text-slate-300">
+                  Opportunities for Growth
+                </span>
+              </li>
+            </ul>
+            <Link href="/careers">
+              <p className="absolute bottom-10 right-10 font-bold text-indigo-400 transition-colors hover:text-indigo-500">
+                See our job opportunities
+                <FontAwesomeIcon icon={faArrowRight} className="ml-2" />
+              </p>
+            </Link>
+          </div>
+        </section>
+      </div>
     </>
   );
 }
