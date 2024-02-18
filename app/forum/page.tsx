@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 
-const Careers = () => {
+const Forum = () => {
   return (
     <>
       <div className="relative h-full w-full">
@@ -15,20 +15,19 @@ const Careers = () => {
         </div>
       </div>
       <section className="m-auto mb-12 mt-20 w-[95%] max-w-6xl">
-        <h1 className="text-5xl font-bold text-slate-100">Careers</h1>
-        <p className="mt-4 text-slate-400">Join our team!</p>
+        <h1 className="text-5xl font-bold text-slate-100">Forums</h1>
         <div className="mt-8 grid h-full w-full place-items-center items-center rounded-xl border-4 border-dashed border-slate-600 p-10 text-slate-400">
           {" "}
           <div className="">
             <Image
-              src="/img/undraw_no_jobs.svg"
+              src="/img/undraw_forums.svg"
               alt="Under Construction"
               height={400}
               width={400}
               className="max-h-lg h-full w-full max-w-lg opacity-80"
             />
             <i className="mt-6 block text-center">
-              No open positions. Check back later.
+              The forums are currently under construction. Check back later.
             </i>
           </div>
         </div>
@@ -37,4 +36,4 @@ const Careers = () => {
   );
 };
 
-export default Careers;
+export default Forum;
