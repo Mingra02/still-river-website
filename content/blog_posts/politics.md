@@ -4,7 +4,7 @@ date: "2024-02-15"
 author: "Michael Ingram"
 position: "Data Scientist"
 tags: ["News"]
-picture: "/blog/img/politics.jpg"
+picture: "/img/blog/politics.jpg"
 ---
 
 In a mind-bending turn of events, a team of scientists has reportedly stumbled upon a portal that leads to an alternate reality where politicians consistently keep their promises. The groundbreaking discovery has sent shockwaves through the political landscape, offering a glimpse into a world seemingly too fantastical to be true.

@@ -1,17 +1,8 @@
-const authorDict: { [key: string]: { image: string; role: string } } = {
-  "Michael Ingram": {
-    image: "/blog/img/michael-ingram.jpg",
-    role: "Data Scientist",
-  },
-  "Ting Guo": { image: "/blog/img/ting-guo.jpg", role: "Data Scientist" },
-};
+import { TEAM } from "@/content/team";
 
-export function getAuthorTitle(authorName: string): {
-  image: string;
-  role: string;
-} {
-  return authorDict[authorName] || { image: "", role: "" };
-}
+export const getTeamMemberData = (name: string) => {
+  return TEAM.find((member) => member.name === name);
+};
 
 const tagDict: { [key: string]: { textColor: string; bgColor: string } } = {
   "Data Science": { textColor: "text-indigo-800", bgColor: "bg-indigo-200" },

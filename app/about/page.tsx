@@ -5,7 +5,7 @@ import AboutImage1 from "../../public/img/about1.webp";
 import AboutImage2 from "../../public/img/about2.webp";
 import AboutImage3 from "../../public/img/about3.webp";
 import AboutImage4 from "../../public/img/about4.webp";
-import Michael from "../../public/blog/img/michael-ingram.jpg";
+import Michael from "../../public/img/team/michael-ingram.jpg";
 import PlaceholderFemale from "../../public/img/placeholder-female.webp";
 import PlaceholderMale from "../../public/img/placeholder-male.webp";
 import JoinOurTeam from "../../public/img/join_our_team.webp";
@@ -24,6 +24,8 @@ import {
   faCircleCheck,
   faL,
 } from "@fortawesome/free-solid-svg-icons";
+
+import { TEAM } from "@/content/team";
 
 interface ValueProps {
   title: string;
@@ -163,124 +165,55 @@ export default function About() {
           Our Team
         </h3>
         <div className="m-auto mt-16 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-          <div className="m-auto h-full max-w-xs">
-            <Link href="/team/michael-ingram">
-              <Image
-                src={Michael}
-                alt="Michael Ingram"
-                className="rounded-lg shadow-lg brightness-75 drop-shadow-lg"
-                placeholder="blur"
-              />
-            </Link>
-            <Link href="/team/michael-ingram">
-              <h4 className="mt-4 text-xl font-bold text-slate-200 transition-colors hover:text-indigo-500">
-                Michael Ingram
-              </h4>
-            </Link>
-            <p className="mtext-sm text-slate-400">Data Scientist</p>
-            <p className="mt-4 text-slate-400">
-              Michael is a seasoned data scientist with a passion for leveraging
-              data to drive strategic business decisions. He has a wealth of
-              experience in predictive analytics, machine learning, and
-              developing custom data applications.
-            </p>
-            <div className="mt-4 flex items-center justify-start gap-5">
-              <Link href="http://www.twitter.com/">
-                <FontAwesomeIcon
-                  icon={faXTwitter}
-                  className="fa-2xl text-slate-400"
+          {TEAM.map((member, index) => (
+            <div key={index} className="m-auto h-full max-w-xs">
+              <Link
+                href={
+                  member.url === "open-position"
+                    ? "/careers/"
+                    : `/team/${member.url}`
+                }
+              >
+                <Image
+                  src={member.image}
+                  alt={`Image of ${member.name}`}
+                  width={320}
+                  height={320}
+                  className="rounded-lg shadow-lg brightness-75 drop-shadow-lg"
                 />
               </Link>
-              <Link href="http://www.linkedin.com/">
-                <FontAwesomeIcon
-                  icon={faLinkedin}
-                  className="fa-2xl text-slate-400"
-                />
+              <Link
+                href={
+                  member.url === "open-position"
+                    ? "/careers/"
+                    : `/team/${member.url}`
+                }
+              >
+                <h4 className="mt-4 text-xl font-bold text-slate-200 transition-colors hover:text-indigo-500">
+                  {member.name}
+                </h4>
               </Link>
-              <Link href="http://www.github.com/">
-                <FontAwesomeIcon
-                  icon={faGithub}
-                  className="fa-2xl text-slate-400"
-                />
-              </Link>
+              <p className="mtext-sm text-slate-400">{member.role}</p>
+              <p className="mt-4 text-slate-400">{member.short_description}</p>
+
+              <div className="mt-4 flex items-center justify-start gap-5">
+                {member.social_links &&
+                  member.social_links.map((social, index) => {
+                    return (
+                      <Link
+                        key={index}
+                        href={social.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-slate-400 transition-colors hover:text-indigo-400"
+                      >
+                        <FontAwesomeIcon icon={social.icon} className="fa-xl" />
+                      </Link>
+                    );
+                  })}
+              </div>
             </div>
-          </div>
-          <div className="m-auto h-full max-w-xs">
-            <Image
-              src={PlaceholderFemale}
-              alt="Placeholder Image of Ting Guo"
-              className="rounded-lg shadow-lg brightness-75 drop-shadow-lg"
-              placeholder="blur"
-            />
-            <h4 className="mt-4 text-xl font-bold text-slate-200">Ting Guo</h4>
-            <p className="mtext-sm text-slate-400">CFO</p>
-            <p className="mt-4 text-slate-400">
-              Ting is a seasoned financial professional with a passion for
-              leveraging data to drive strategic business decisions. She has a
-              wealth of experience in predictive analytics, machine learning,
-              and developing custom data applications.
-            </p>
-            <div className="mt-4 flex items-center justify-start gap-5">
-              <Link href="http://www.twitter.com/">
-                <FontAwesomeIcon
-                  icon={faXTwitter}
-                  className="fa-2xl text-slate-400"
-                />
-              </Link>
-              <Link href="http://www.linkedin.com/">
-                <FontAwesomeIcon
-                  icon={faLinkedin}
-                  className="fa-2xl text-slate-400"
-                />
-              </Link>
-              <Link href="http://www.github.com/">
-                <FontAwesomeIcon
-                  icon={faGithub}
-                  className="fa-2xl text-slate-400"
-                />
-              </Link>
-            </div>
-          </div>
-          <div className="m-auto h-full max-w-xs">
-            <Image
-              src={PlaceholderMale}
-              alt="Placeholder Image of Open Position"
-              className="rounded-lg shadow-lg brightness-75 drop-shadow-lg"
-              placeholder="blur"
-            />
-            <h4 className="mt-4 text-xl font-bold text-slate-200">
-              Open Position
-            </h4>
-            <p className="mtext-sm text-slate-400">CHO</p>
-            <p className="mt-4 text-slate-400">
-              We are currently looking for a seasoned professional to join our
-              team as a Chief Happiness Officer. If you are passionate about
-              leveraging data to drive strategic business decisions, we would
-              love to hear from you. Applicants should have a wealth of
-              experience in predictive analytics, machine learning, and
-              developing custom data applications.
-            </p>
-            <div className="mt-4 flex items-center justify-start gap-5">
-              <Link href="http://www.twitter.com/">
-                <FontAwesomeIcon
-                  icon={faXTwitter}
-                  className="fa-2xl text-slate-400"
-                />
-              </Link>
-              <Link href="http://www.linkedin.com/">
-                <FontAwesomeIcon
-                  icon={faLinkedin}
-                  className="fa-2xl text-slate-400"
-                />
-              </Link>
-              <Link href="http://www.github.com/">
-                <FontAwesomeIcon
-                  icon={faGithub}
-                  className="fa-2xl text-slate-400"
-                />
-              </Link>
-            </div>
-          </div>
+          ))}
         </div>
       </section>
       <div className="relative h-full w-full">

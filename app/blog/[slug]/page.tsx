@@ -2,12 +2,13 @@ import Markdown from "markdown-to-jsx";
 import getPostMetadata from "@/components/getPostMetadata";
 import Image from "next/image";
 import {
-  getAuthorTitle,
+  getTeamMemberData,
   getTagColors,
   formatDate,
 } from "@/components/blogUtils";
 import fs from "fs";
 import matter from "gray-matter";
+import Link from "next/link";
 
 const getPostContent = (slug: string) => {
   const folder = "./content/blog_posts/";
@@ -20,6 +21,11 @@ const getPostContent = (slug: string) => {
 export default function BlogPost(props: any) {
   const slug = props.params.slug;
   const post = getPostContent(slug);
+  const team_member_data = getTeamMemberData(post.data.author);
+  const author_data =
+    team_member_data !== undefined
+      ? team_member_data
+      : { image: "", role: "", name: "", url: "" };
 
   return (
     <>
@@ -38,16 +44,20 @@ export default function BlogPost(props: any) {
         <div className="m-auto mt-4 grid max-w-3xl grid-cols-[auto_1fr] items-center md:mt-8">
           <div className="flex items-center">
             <Image
-              src={getAuthorTitle(post.data.author).image}
+              src={author_data.image}
               alt={post.data.author}
               width={64}
               height={64}
               className="h-12 w-12 rounded-full sm:h-16 sm:w-16"
             />
             <div className="ml-4">
-              <p className="font-bold text-slate-300">{post.data.author}</p>
+              <Link href={`/team/${author_data.url}`}>
+                <p className="font-bold text-slate-300 hover:text-indigo-400">
+                  {post.data.author}
+                </p>
+              </Link>
               <p className="text-sm text-slate-400 sm:text-base">
-                {getAuthorTitle(post.data.author).role}
+                {author_data.role}
               </p>
             </div>
           </div>

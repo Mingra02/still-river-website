@@ -5,7 +5,7 @@ import Link from "next/link";
 import { PostMetadata } from "@/components/PostMetadata";
 import Image from "next/image";
 import {
-  getAuthorTitle,
+  getTeamMemberData,
   getTagColors,
   formatDate,
   clipPostContent,
@@ -18,6 +18,11 @@ import {
 
 const PostPreview = (props: PostMetadata) => {
   const summary = clipPostContent(props.content);
+  const teamMemberData = getTeamMemberData(props.author);
+  const authorData =
+    teamMemberData !== undefined
+      ? teamMemberData
+      : { image: "", role: "", name: "", url: "" };
 
   return (
     <div className="m-auto mt-16 grid max-w-sm grid-cols-1 gap-8 text-slate-200 first:mt-8 md:mt-8 md:px-8 xl:mt-16 xl:max-w-full xl:grid-cols-[auto_1fr] xl:p-0">
@@ -54,17 +59,19 @@ const PostPreview = (props: PostMetadata) => {
         </p>
         <div className="order-1 flex w-full items-center border-slate-700 pt-4 xl:order-none  xl:mt-8 xl:border-t">
           <Image
-            src={getAuthorTitle(props.author).image}
-            alt={props.author}
+            src={authorData.image}
+            alt={authorData.name}
             width={48}
             height={48}
             className="h-12 w-12 rounded-full"
           />
           <div className="ml-4">
-            <p className="font-semibold text-slate-300">{props.author}</p>
-            <p className="text-sm text-slate-400">
-              {getAuthorTitle(props.author).role}
-            </p>
+            <Link href={`/team/${authorData.url}`}>
+              <p className="font-semibold text-slate-300 transition-colors hover:text-indigo-400">
+                {authorData.name}
+              </p>
+            </Link>
+            <p className="text-sm text-slate-400">{authorData.role}</p>
           </div>
         </div>
       </div>
