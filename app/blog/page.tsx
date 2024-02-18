@@ -190,7 +190,7 @@ export default function Blog() {
   return (
     <>
       <section className="overflow-none relative m-auto mb-12 mt-20 max-w-7xl px-10 sm:mt-32">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_auto]">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_auto] lg:gap-12">
           <div>
             <div className="flex items-center justify-between">
               <h1 className="text-4xl font-bold text-slate-100">The Blog</h1>
