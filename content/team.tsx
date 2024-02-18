@@ -119,7 +119,7 @@ export const TEAM = [
   {
     url: "ting-guo",
     name: "Ting Guo",
-    role: "Data Scientist",
+    role: "CFO",
     image: "/img/placeholder-female.webp",
     short_description:
       "Ting is a seasoned financial professional with a passion for leveraging data to drive strategic business decisions. She has a wealth of experience in predictive analytics, machine learning, and developing custom data applications.",

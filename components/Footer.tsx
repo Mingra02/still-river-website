@@ -90,7 +90,7 @@ const Footer = () => {
         <FooterLinkGroup
           title="Solutions"
           links={[
-            { text: "Service", href: "/service" },
+            { text: "Services", href: "/#services" },
             { text: "Portfolio", href: "/portfolio" },
             { text: "Contact Us", href: "/contact" },
           ]}
@@ -106,7 +106,7 @@ const Footer = () => {
           title="Company"
           links={[
             { text: "About", href: "/about" },
-            { text: "Team", href: "/team" },
+            { text: "Team", href: "/about#team" },
             { text: "Careers", href: "/careers" },
           ]}
         />

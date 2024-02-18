@@ -17,6 +17,8 @@ import HeroImage from "@/public/img/hero.webp";
 import EasyTunes from "@/public/img/easytunes.webp";
 import BudgetPro from "@/public/img/budgetpro.webp";
 
+import { PORTFOLIO } from "@/content/portfolio";
+
 export default function Home() {
   const [hasScrolled, setHasScrolled] = useState(false);
 
@@ -82,6 +84,7 @@ export default function Home() {
       </section>
 
       <section
+        id="services"
         className={`transition-all duration-1000 ${hasScrolled ? "-mt-16 opacity-100" : "mt-20 opacity-0"}`}
       >
         <div className="relative w-screen max-w-full overflow-x-clip">
@@ -109,18 +112,15 @@ export default function Home() {
           Our Portfolio
         </h2>
         <div className="grid grid-cols-1 gap-12 px-8 lg:grid-cols-2 xl:gap-24">
-          <PortfolioCard
-            imgSrc={EasyTunes}
-            title="EasyTunes"
-            description="EasyTunes is a generative music model for creating simple music
-          tracks. It is designed to work on consumer-grade hardware and can
-          create a song in less than a minute and a half on just a CPU."
-          />
-          <PortfolioCard
-            imgSrc={BudgetPro}
-            title="BudgetPro"
-            description="BudgetPro is an advanced budgeting app that creates budgets based on the user's income, calculates tax witholdings, loan payoffs, and more."
-          />
+          {PORTFOLIO.slice(0, 2).map((project, index) => (
+            <PortfolioCard
+              key={index}
+              imgSrc={project.image}
+              title={project.title}
+              description={project.description}
+              link={project.link}
+            />
+          ))}
         </div>
       </section>
     </>

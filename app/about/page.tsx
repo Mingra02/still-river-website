@@ -160,7 +160,7 @@ export default function About() {
           />
         </div>
       </section>
-      <section className="m-auto w-full max-w-7xl">
+      <section className="m-auto w-full max-w-7xl" id="team">
         <h3 className="pl-8 text-3xl font-bold text-slate-200 xl:pl-20">
           Our Team
         </h3>

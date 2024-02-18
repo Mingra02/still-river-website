@@ -22,16 +22,16 @@ const Button: React.FC<TertiaryButtonProps> = ({
           icon={icon}
           height={24}
           width={24}
-          className="mr-0 pl-1 transition-all ease-in-out group-hover:mr-1 group-hover:pl-0 group-hover:text-slate-400"
+          className="mr-0 pl-1 transition-all ease-in-out group-hover:mr-1 group-hover:pl-0 group-hover:text-indigo-400"
         />
       )}
-      <span className="group-hover:text-slate-400">{text}</span>
+      <span className="group-hover:text-indigo-400">{text}</span>
       {iconPlacement == "right" && (
         <FontAwesomeIcon
           icon={icon}
           height={24}
           width={24}
-          className="ml-0 pr-1 transition-all ease-in-out group-hover:ml-1 group-hover:pr-0 group-hover:text-slate-400"
+          className="ml-0 pr-1 transition-all ease-in-out group-hover:ml-1 group-hover:pr-0 group-hover:text-indigo-400"
         />
       )}
     </div>
