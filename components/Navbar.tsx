@@ -2,18 +2,32 @@
 
 import { PAGES } from "@/content/content";
 import Link from "next/link";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 
-import { useState } from "react";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faX } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faUser, faX } from "@fortawesome/free-solid-svg-icons";
 
 import LogoImage from "@/public/img/logo.png";
 
+interface User {
+  username: string;
+  id: number;
+}
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    fetch("/api/forum/user.php")
+      .then((res) => res.json())
+      .then((data) => {
+        if (!data.error) {
+          setUser(data);
+        }
+      });
+  }, []);
 
   return (
     <>
@@ -41,12 +55,27 @@ const Navbar = () => {
               </Link>
             ))}
           </div>
-          <Link
-            href="/login"
-            className="hidden px-10 text-right text-slate-300 transition duration-300 hover:text-indigo-400 md:block"
-          >
-            Log In
-          </Link>
+          {user ? (
+            <Link
+              href="/api/forum/logout.php"
+              className="hidden px-10 text-right text-slate-300 transition duration-300 hover:text-indigo-400 md:block"
+            >
+              <Image
+                src={`/img/forum/avatars/${user.id}.jpg`}
+                width={40}
+                height={40}
+                alt={user.username}
+                className="inline rounded-full"
+              />
+            </Link>
+          ) : (
+            <Link
+              href="/api/forum/auth.php"
+              className="hidden px-10 text-right text-slate-300 transition duration-300 hover:text-indigo-400 md:block"
+            >
+              Log In
+            </Link>
+          )}
           <div
             className="block px-10 pt-3 md:hidden"
             onClick={() => setIsOpen(!isOpen)}
@@ -89,6 +118,31 @@ const Navbar = () => {
             />
           </div>
           <ul className="mt-10 flex w-full flex-col justify-center">
+            {user ? (
+              <Link
+                href="/api/forum/logout.php"
+                className="my-3 ml-8 mr-14 block text-lg font-semibold text-slate-200 transition duration-300 hover:text-indigo-400"
+                onClick={() => setIsOpen(!isOpen)}
+              >
+                <Image
+                  src={`/img/forum/avatars/${user.id}.jpg`}
+                  width={40}
+                  height={40}
+                  alt={user.username}
+                  className="inline rounded-full"
+                />
+                <span className="ml-4"></span>Log Out
+              </Link>
+            ) : (
+              <Link
+                href="/api/forum/auth.php"
+                className="mx-14 my-3 block text-lg font-semibold text-slate-200 transition duration-300 hover:text-indigo-400"
+                onClick={() => setIsOpen(!isOpen)}
+              >
+                <FontAwesomeIcon icon={faUser} className="mr-4" />
+                Log In
+              </Link>
+            )}
             {PAGES.map((page) => (
               <li key={page.label} className="m-auto w-full">
                 <Link

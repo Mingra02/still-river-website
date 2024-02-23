@@ -5,8 +5,15 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import { Metadata } from "next";
 
-const PortfolioItem = ({ project } : {project: Project}) => {
+export const metadata: Metadata = {
+  title: "Portfolio | The Still River",
+  description:
+    "Check out some of our successful projects and see what we can do for you.",
+};
+
+const PortfolioItem = ({ project }: { project: Project }) => {
   return (
     <div className="m-auto mt-12 grid max-w-sm grid-cols-1 place-items-center justify-center gap-5 md:mt-24 md:max-w-4xl md:grid-cols-[auto_1fr] md:gap-12">
       <Image

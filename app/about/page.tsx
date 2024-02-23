@@ -5,9 +5,6 @@ import AboutImage1 from "../../public/img/about1.webp";
 import AboutImage2 from "../../public/img/about2.webp";
 import AboutImage3 from "../../public/img/about3.webp";
 import AboutImage4 from "../../public/img/about4.webp";
-import Michael from "../../public/img/team/michael-ingram.jpg";
-import PlaceholderFemale from "../../public/img/placeholder-female.webp";
-import PlaceholderMale from "../../public/img/placeholder-male.webp";
 import JoinOurTeam from "../../public/img/join_our_team.webp";
 
 import React from "react";
@@ -26,6 +23,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import { TEAM } from "@/content/team";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About The Still River",
+  description:
+    "We believe in harnessing the transformative power of data science to drive innovation and efficiency. Our team of dedicated professionals is committed to delivering bespoke solutions that cater to your unique business challenges.",
+};
 
 interface ValueProps {
   title: string;
@@ -127,7 +131,7 @@ export default function About() {
           </div>
         </div>
       </section>
-      <section className="m-auto mb-6 mt-20 grid max-w-7xl grid-cols-2 px-8 md:mt-28 lg:mb-16 xl:mb-24">
+      <section className="m-auto mb-6 mt-20 grid max-w-7xl grid-cols-2 px-8 md:mt-28 lg:pb-16 xl:mb-24">
         <h2 className="col-span-2 m-auto mt-0 w-full max-w-lg text-3xl font-bold text-slate-200 md:col-span-1">
           Our Values
         </h2>

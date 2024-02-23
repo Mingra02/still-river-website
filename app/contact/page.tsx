@@ -1,8 +1,15 @@
 "use client";
 
+import { Metadata } from "next";
 import { useContext, useEffect, useState } from "react";
 import { Flip, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+export const metadata: Metadata = {
+  title: "Contact Us | The Still River",
+  description:
+    "Get in touch with us and see how we can help you unleash the power of your data.",
+};
 
 type FormGroupProps = {
   label: string;

@@ -9,6 +9,8 @@ import {
 import fs from "fs";
 import matter from "gray-matter";
 import Link from "next/link";
+import Head from "next/head";
+import type { Metadata, ResolvingMetadata } from "next";
 
 const getPostContent = (slug: string) => {
   const folder = "./content/blog_posts/";
@@ -17,6 +19,51 @@ const getPostContent = (slug: string) => {
   const matterResult = matter(content);
   return matterResult;
 };
+
+type Props = {
+  params: { slug: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
+
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
+  // read route params
+  const slug = params.slug;
+
+  // fetch data
+  const post = getPostContent(slug);
+
+  // optionally access and extend (rather than replace) parent metadata
+  const previousImages = (await parent).openGraph?.images || [];
+
+  let description_clipped = "";
+  if (post && post.data && post.data.description) {
+    description_clipped = post.data.description.substring(0, 150);
+  }
+
+  return {
+    title: post.data.title,
+    openGraph: {
+      images: [post.data.picture, ...previousImages],
+      description: description_clipped,
+      url: `https://stillriver.dev/blog/${slug}`,
+      type: "article",
+      authors: post.data.author,
+      publishedTime: post.data.date,
+      modifiedTime: post.data.date,
+    },
+    twitter: {
+      card: "summary_large_image",
+      site: "@stillriverdev",
+      creator: "@stillriverdev",
+      title: post.data.title,
+      description: description_clipped,
+      images: post.data.picture,
+    },
+  };
+}
 
 export default function BlogPost(props: any) {
   const slug = props.params.slug;
@@ -27,9 +74,40 @@ export default function BlogPost(props: any) {
       ? team_member_data
       : { image: "", role: "", name: "", url: "" };
 
+  let description_clipped = "";
+  if (post && post.data && post.data.description) {
+    description_clipped = post.data.description.substring(0, 150);
+  }
+
   return (
     <>
       <div className="fixed bottom-0 top-0 isolate -z-10 m-auto hidden w-screen overflow-clip sm:block lg:mb-0">
+        <Head>
+          <title>Test</title>
+          {/* <title>{post.data.title}</title> */}
+          {/* <meta
+            name="description"
+            content={description_clipped}
+            key="description"
+          />
+          <meta property="og:title" content={post.data.title} />
+          <meta property="og:description" content={description_clipped} />
+          <meta property="og:image" content={post.data.picture} />
+          <meta
+            property="og:url"
+            content={`https://stillriver.dev/blog/${slug}`}
+          />
+          <meta property="og:type" content="article" />
+          <meta property="article:author" content={author_data.name} />
+          <meta property="article:published_time" content={post.data.date} />
+          <meta property="article:modified_time" content={post.data.date} />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:site" content="@stillriverdev" />
+          <meta name="twitter:creator" content="@stillriverdev" />
+          <meta name="twitter:title" content={post.data.title} />
+          <meta name="twitter:description" content={description_clipped} />
+          <meta name="twitter:image" content={post.data.picture} /> */}
+        </Head>
         <div className="absolute -left-48 -top-20 isolate -z-10 h-[500px] w-[500px] bg-gradient-radial from-rose-600/25 to-slate-950/0 xl:left-[15%] xl:top-0"></div>
         <div className="absolute -left-24 top-[30%] -z-10 h-[725px] w-[725px] bg-gradient-radial from-fuchsia-800/25 to-slate-950/0 xl:left-[20%]"></div>
         <div className="absolute left-24 top-16 -z-10 h-[630px] w-[630px] bg-gradient-radial from-indigo-950/90 to-slate-950/0 xl:left-[30%]"></div>

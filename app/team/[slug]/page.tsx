@@ -3,6 +3,49 @@ import { TEAM } from "@/content/team";
 import Image from "next/image";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Head from "next/head";
+import type { Metadata, ResolvingMetadata } from "next";
+
+type Props = {
+  params: { slug: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
+
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
+  // read route params
+  const slug = params.slug;
+
+  // fetch data
+  const team_member = TEAM.find((member) => member.url === slug);
+
+  if (!team_member) {
+    throw new Error("Team member not found");
+  }
+
+  // optionally access and extend (rather than replace) parent metadata
+  const previousImages = (await parent).openGraph?.images || [];
+
+  return {
+    title: `${team_member.name} | The Still River`,
+    openGraph: {
+      images: [team_member.image, ...previousImages],
+      description: team_member.short_description,
+      url: `https://www.the-still-river.com/team/${slug}`,
+      type: "profile",
+    },
+    twitter: {
+      card: "summary_large_image",
+      site: "@stillriverdev",
+      creator: "@stillriverdev",
+      title: team_member.name + " | The Still River",
+      description: team_member.short_description,
+      images: team_member.image,
+    },
+  };
+}
 
 export default function TeamMember(props: any) {
   const slug = props.params.slug;
@@ -31,6 +74,40 @@ export default function TeamMember(props: any) {
 
   return (
     <>
+      <Head>
+        <title key="title">{team_member.name} | Still River</title>
+        <meta
+          name="description"
+          content={team_member.short_description}
+          key="description"
+        />
+        <meta
+          property="og:title"
+          content={`${team_member.name} | Still River`}
+        />
+        <meta
+          property="og:description"
+          content={team_member.short_description}
+        />
+        <meta property="og:image" content={team_member.image} />
+        <meta
+          property="og:url"
+          content={`https://stillriver.dev/team/${team_member.url}`}
+        />
+        <meta property="og:type" content="profile" />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@stillriverdev" />
+        <meta name="twitter:creator" content="@stillriverdev" />
+        <meta
+          name="twitter:title"
+          content={`${team_member.name} | Still River`}
+        />
+        <meta
+          name="twitter:description"
+          content={team_member.short_description}
+        />
+        <meta name="twitter:image" content={team_member.image} />
+      </Head>
       <div className="relative h-full w-full">
         <div className="absolute -top-[10%] left-0 right-0 isolate -z-10 m-auto h-full w-screen overflow-visible overflow-x-clip lg:-top-[35%] lg:mb-0">
           <div className="absolute -left-48 -top-20 isolate -z-10 h-[500px] w-[500px] bg-gradient-radial from-rose-600/25 to-slate-950/0 xl:left-[15%] xl:top-0"></div>
