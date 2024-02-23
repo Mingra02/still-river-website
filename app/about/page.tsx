@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import AboutImage1 from "../../public/img/about1.webp";
 import AboutImage2 from "../../public/img/about2.webp";
