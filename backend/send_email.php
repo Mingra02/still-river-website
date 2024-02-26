@@ -1,6 +1,21 @@
 <?php
 require 'vendor/autoload.php';
+
 use PHPMailer\PHPMailer\PHPMailer;
+
+$env = getenv('PHP_ENV');
+
+if ($env === 'production') {
+    $password = getenv('EMAIL_PASSWORD');
+} else {
+    $dotenvPath = __DIR__ . '/.env.dev';
+    if (!file_exists($dotenvPath)) {
+        exit('Environment file not found: ' . $dotenvPath);
+    }
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__, '.env.dev');
+    $dotenv->load();
+    $password = $_ENV['EMAIL_PASSWORD'];
+}
 
 // Enable CORS for React app
 function setCorsHeaders() {
@@ -32,7 +47,7 @@ function sendEmail($data) {
     $mail->addReplyTo('michael@the-still-river.com', 'Michael Ingram');
     $mail->addAddress($data->email, $data->name);
     $mail->addCC('michael@the-still-river.com', 'Michael Ingram');
-    $mail->Subject = 'Thanks for reaching out to The Still River ' . $data->given_name . '!';
+    $mail->Subject = 'Thanks for reaching out to The Still River ' . $data->name . '!';
     $mail->isHTML(true);
     $mail->Body = "<!DOCTYPE html>
     <html lang=\"en\" xmlns:v=\"urn:schemas-microsoft-com:vml\">
@@ -225,7 +240,7 @@ function sendEmail($data) {
               <table style=\"width: 100%;\" cellpadding=\"0\" cellspacing=\"0\" role=\"none\">
                 <tr>
                   <td class=\"sm-px-4\" style=\"padding-left: 32px; padding-right: 32px; font-size: 16px; line-height: 24px; color: #475569\">
-                    <h1 style=\"font-size: 30px; line-height: 36px; color: #0f172a\">Thanks for reaching out!</h1>
+                    <h1 style=\"font-size: 30px; line-height: 36px; color: #0f172a\">Thank you for reaching out!</h1>
                     <p style=\"font-size: 16px; line-height: 24px; color: #475569; margin: 0 0 32px\">Hello " . $data->given_name . ",</p>
                     <p style=\"font-size: 16px; line-height: 24px; color: #475569; margin: 0 0 32px;\">Thank you for reaching out to us! We're thrilled to hear from you and are eager to assist you further. Our team is currently reviewing your inquiry and will get back to you as quickly as possible.</p>
                     <p style=\"font-size: 16px; line-height: 24px; color: #475569; margin: 0 0 32px;\">Feel free to reply to this email if you have any immediate questions or need further information on our services. We're here to help you navigate your data science and analytics journey with ease. Looking forward to collaborating with you!</p>
@@ -265,7 +280,7 @@ function sendEmail($data) {
     </html>
     ";
 
-    $mail->AltBody = 'Hello ' . $data->given_name . ', Thank you for getting in touch with us! We\'re thrilled to hear from you and are eager to assist you further. Our team is currently reviewing your inquiry and will get back to you as quickly as possible. Feel free to reply to this email if you have any immediate questions or need further information on our services. We\'re here to help you navigate your data science and analytics journey with ease. Looking forward to collaborating with you! Best regards, Michael';
+    $mail->AltBody = 'Hello ' . $data->name . ', Thank you for getting in touch with us! We\'re thrilled to hear from you and are eager to assist you further. Our team is currently reviewing your inquiry and will get back to you as quickly as possible. Feel free to reply to this email if you have any immediate questions or need further information on our services. We\'re here to help you navigate your data science and analytics journey with ease. Looking forward to collaborating with you! Best regards, Michael';
     
     
 
@@ -305,4 +320,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     http_response_code(405);
     echo json_encode(['message' => 'Method not allowed. Please use POST.']);
 }
-?>

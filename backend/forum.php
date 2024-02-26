@@ -2,70 +2,99 @@
 
 include "dbconn.php";
 
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: *");
+
 $query = "
 SELECT 
-f.Forum_Title, 
-f.Forum_Description,
-tp.Topic_Title,
-tp.Topic_Description,
-t.Thread_Title,
-u.name AS user_name, 
-p.date AS post_date 
+    f.title AS Forum_Title, 
+    f.description AS Forum_Description,
+    tp.id AS Topic_ID,
+    tp.title AS Topic_Title,
+    tp.description AS Topic_Description,
+    t.id as Thread_ID,
+    t.title AS Thread_Title,
+    u.id AS user_id,
+    u.username AS user_name, 
+    p.created_at AS post_date,
+    COALESCE(thread_count.Thread_Count, 0) AS Thread_Count,
+    COALESCE(post_count.Post_Count, 0) AS Post_Count
 FROM 
-Post p
+    Forums f
 JOIN 
-Thread t ON p.Thread_ID = t.Thread_ID
-JOIN 
-Topics tp ON t.Topic_ID = tp.Topic_ID
-JOIN 
-Forums f ON tp.Forum_ID = f.Forum_ID
-JOIN 
-User u ON p.user_id = u.user_id
-JOIN 
-(SELECT 
-    tp.Topic_ID, 
-    MAX(p.date) AS MaxDate
- FROM 
-    Post p
- JOIN Thread t ON p.Thread_ID = t.Thread_ID
- JOIN Topics tp ON t.Topic_ID = tp.Topic_ID
- GROUP BY 
-    tp.Topic_ID) AS latestPost ON tp.Topic_ID = latestPost.Topic_ID AND p.date = latestPost.MaxDate
+    Topics tp ON f.id = tp.forum_id
+LEFT JOIN 
+    Threads t ON tp.id = t.topic_id
+LEFT JOIN 
+    Posts p ON t.id = p.thread_id
+LEFT JOIN 
+    Users u ON p.user_id = u.id
+LEFT JOIN 
+    (SELECT 
+        tp.id AS Topic_ID, 
+        COUNT(DISTINCT t.id) AS Thread_Count
+    FROM 
+        Threads t
+    RIGHT JOIN Topics tp ON t.topic_id = tp.id
+    GROUP BY 
+        tp.id
+    ) AS thread_count ON tp.id = thread_count.Topic_ID
+LEFT JOIN 
+    (SELECT 
+        tp.id AS Topic_ID, 
+        COUNT(p.id) AS Post_Count
+    FROM 
+        Posts p
+    RIGHT JOIN Threads t ON p.thread_id = t.id
+    RIGHT JOIN Topics tp ON t.topic_id = tp.id
+    GROUP BY 
+        tp.id
+    ) AS post_count ON tp.id = post_count.Topic_ID
+GROUP BY 
+    tp.id, t.id, p.id
 ORDER BY 
-f.Forum_ID,
-tp.Topic_ID, 
-p.date DESC;";
+    f.id, tp.id, p.created_at DESC
+";
 
-$result = $conn->query($query);
+$stmt = $conn->prepare($query);
+$stmt->execute();
 
 $data = [];
-$currentForum = null;
-$currentTopic = null;
+$currentForumTitle = null;
+$currentTopicTitle = null;
 
-if ($result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {
-        if ($currentForum === null || $currentForum['forum_title'] !== $row['Forum_Title']) {
-            $currentForum = [
-                'forum_title' => $row['Forum_Title'],
-                'forum_desc' => $row['Forum_Description'],
-                'topics' => []
-            ];
-            $data[] = &$currentForum;
-            $currentTopic = null;
-        }
-        if ($currentTopic === null || $currentTopic['topic_title'] !== $row['Topic_Title']) {
-            $currentTopic = [
-                'topic_title' => $row['Topic_Title'],
-                'topic_desc' => $row['Topic_Description'],
-                'threads' => []
-            ];
-            $currentForum['topics'][] = &$currentTopic;
-        }
-        $currentTopic['threads'][] = [
+while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    if ($currentForumTitle !== $row['Forum_Title']) {
+        $currentForum = [
+            'forum_title' => $row['Forum_Title'],
+            'forum_description' => $row['Forum_Description'],
+            'topics' => []
+        ];
+        $data[] = $currentForum;
+        $currentForumTitle = $row['Forum_Title'];
+    }
+    if ($currentTopicTitle !== $row['Topic_Title']) {
+        $currentTopic = [
+            'topic_id' => $row['Topic_ID'],
+            'topic_title' => $row['Topic_Title'],
+            'topic_description' => $row['Topic_Description'],
+            'thread_count' => $row['Thread_Count'],
+            'post_count' => $row['Post_Count'],
+            'threads' => []
+        ];
+        $data[count($data) - 1]['topics'][] = $currentTopic;
+        $currentTopicTitle = $row['Topic_Title'];
+    }
+    if ($row['Thread_ID']) {
+        $currentThread = [
+            'thread_id' => $row['Thread_ID'],
             'thread_title' => $row['Thread_Title'],
+            'user_id' => $row['user_id'],
             'user_name' => $row['user_name'],
             'post_date' => $row['post_date']
         ];
+        $topics =& $data[count($data) - 1]['topics'];
+        $topics[count($topics) - 1]['threads'][] = $currentThread;
     }
 } 
 

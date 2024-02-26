@@ -1,21 +1,38 @@
 <?php
 
-declare(strict_types=1);
+$env = getenv('PHP_ENV');
 
-require_once('vendor/autoload.php');
-
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-$dotenv->load();
-
-$host = $_ENV["MYSQL_HOSTNAME"];
-$username = $_ENV["MYSQL_ID"] . "_" . $_ENV["MYSQL_USERNAME"];
-$password = $_ENV['MYSQL_PASSWORD'];
-$dbname = $_ENV["MYSQL_ID"] . "_" . $_ENV["MYSQL_DBNAME"];
-
-return $conn = mysqli_connect($host, $username, $password, $dbname);
-
-if (!$conn) {
-    die('Could not connect: ' . mysqli_error());
+if ($env === 'production') {
+    $clientID = getenv('GOOGLE_OAUTH_ID');
+    $clientSecret = getenv('GOOGLE_OAUTH_SECRET');
+    $host = getenv("MYSQL_HOSTNAME");
+    $dbUsername = getenv("MYSQL_ID") . "_" . getenv("MYSQL_USERNAME");
+    $dbPassword = getenv('MYSQL_PASSWORD');
+    $dbname = getenv("MYSQL_ID") . "_" . getenv("MYSQL_DBNAME");
+} else {
+    $dotenvPath = __DIR__ . '/.env.dev';
+    if (!file_exists($dotenvPath)) {
+        exit('Environment file not found: ' . $dotenvPath);
+    }
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__, '.env.dev');
+    $dotenv->load();
+    $clientID = $_ENV['GOOGLE_OAUTH_ID'];
+    $clientSecret = $_ENV['GOOGLE_OUTH_SECRET'];
+    $host = $_ENV["MYSQL_HOSTNAME"];
+    $dbUsername = $_ENV["MYSQL_ID"] . "_" . $_ENV["MYSQL_USERNAME"];
+    $dbPassword = $_ENV['MYSQL_PASSWORD'];
+    $dbname = $_ENV["MYSQL_ID"] . "_" . $_ENV["MYSQL_DBNAME"];
 }
+
+$charset = 'utf8mb4';
+
+$dsn = "mysql:host=$host;dbname=$dbname;charset=$charset";
+$opt = [
+    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+    PDO::ATTR_EMULATE_PREPARES   => false,
+];
+
+$conn = new PDO($dsn, $dbUsername, $dbPassword, $opt);
 
 ?>
