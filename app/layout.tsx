@@ -21,13 +21,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Head>
-        <title key="title">The Still River</title>
-        <meta
-          name="description"
-          content="Unleash the power of your data with our exper analysis and bespoke solutions."
-        />
-      </Head>
       <body className="overflow-x-hidden bg-slate-950">
         <Navbar />
         {children}

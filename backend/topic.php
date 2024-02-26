@@ -3,24 +3,29 @@
 include 'dbconn.php'; 
 
 header('Content-Type: application/json');
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: *");
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['topic_id'])) {
-    $threadId = $_GET['topic_id'];
+    $topicID = $_GET['topic_id'];
     $page = isset($_GET['page']) ? $_GET['page'] : 0;
     $resultsPerPage = 20;
     $offset = $page * $resultsPerPage;
 
     $stmt = $conn->prepare("
 SELECT
-    t.id AS Thread_ID,
-    t.title AS Thread_Title,
-    t.created_at AS Thread_Created_At,
-    thread_author.id AS Thread_Author_ID,
-    thread_author.username AS Thread_Author_Username,
-    latest_post.Author_ID AS Latest_Post_Author_ID,
-    latest_post.Author_Username AS Latest_Post_Author_Username,
-    latest_post.Latest_Post_Created_At,
-    COUNT(p.id) AS Post_Count
+    topic.id AS topic_id,
+    topic.title AS topic_title,
+    topic.description AS topic_description,
+    t.id AS thread_id,
+    t.title AS thread_title,
+    t.created_at AS thread_created_at,
+    thread_author.id AS thread_author_id,
+    thread_author.username AS thread_author_username,
+    latest_post.Author_ID AS latest_post_author_id,
+    latest_post.Author_Username AS latest_post_author_username,
+    latest_post.Latest_Post_Created_At AS latest_post_created_at,
+    COUNT(p.id) AS post_count
 FROM
     Threads t
 JOIN
@@ -39,10 +44,12 @@ LEFT JOIN
         GROUP BY
             p.thread_id, p.user_id, u.username
     ) AS latest_post ON t.id = latest_post.thread_id
-JOIN
+LEFT JOIN
     Posts p ON t.id = p.thread_id
+JOIN
+    Topics topic ON t.topic_id = topic.id
 WHERE
-    t.topic_id = :thread_id
+    t.topic_id = :topic_id
 GROUP BY
     Thread_ID,
     Thread_Author_ID,
@@ -51,12 +58,26 @@ ORDER BY
     latest_post.Latest_Post_Created_At DESC
 LIMIT :results_per_page OFFSET :offset
     ");
-    $stmt->bindParam(':thread_id', $threadId, PDO::PARAM_INT);
+    $stmt->bindParam(':topic_id', $topicID, PDO::PARAM_INT);
     $stmt->bindValue(':results_per_page', (int) $resultsPerPage, PDO::PARAM_INT);
     $stmt->bindValue(':offset', (int) $offset, PDO::PARAM_INT);
     $stmt->execute();
-
     $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    if(empty($posts)) {
+        $stmt = $conn->prepare("
+            SELECT
+                topic.id AS topic_id,
+                topic.title AS topic_title
+            FROM
+                Topics topic
+            WHERE
+                topic.id = :topic_id
+        ");
+        $stmt->bindParam(':topic_id', $topicID, PDO::PARAM_INT);
+        $stmt->execute();
+        $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
     echo json_encode($posts);
 

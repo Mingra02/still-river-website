@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 interface Thread {
   user_id: number;
@@ -10,6 +11,7 @@ interface Thread {
 }
 
 interface Topic {
+  topic_id: number;
   topic_title: string;
   topic_description: string;
   thread_count: number;
@@ -48,13 +50,15 @@ const Forums = () => {
           {forum.topics.map((topic: Topic) => (
             <div
               key={topic.topic_title}
-              className="grid grid-cols-[1fr_auto] border-t border-white/25 py-4 text-slate-400 md:grid-cols-[1fr_250px] lg:grid-cols-[1fr_100px_250px]"
+              className="grid grid-cols-1 border-t border-white/25 py-4 text-slate-400 md:grid-cols-[1fr_250px] lg:grid-cols-[1fr_100px_250px]"
             >
               <div>
-                <h3 className="text-lg font-semibold text-slate-300">
-                  {topic.topic_title}
-                </h3>
-                <p className="hidden text-sm text-slate-400 md:block">
+                <Link href={`/forum/topic?topic_id=${topic.topic_id}`}>
+                  <h3 className="text-lg font-semibold text-slate-300 transition-colors hover:text-indigo-400">
+                    {topic.topic_title}
+                  </h3>
+                </Link>
+                <p className="text-sm text-slate-400">
                   {topic.topic_description}
                 </p>
               </div>
@@ -62,7 +66,7 @@ const Forums = () => {
                 <div className="m-0 p-0">Threads: {topic.thread_count}</div>
                 <div className="m-0 p-0">Posts: {topic.post_count}</div>
               </div>
-              <div className="grid h-full grid-cols-[auto_1fr] items-center justify-center gap-5">
+              <div className="my-2 grid h-full grid-cols-[auto_1fr] items-center justify-center gap-5 md:my-0">
                 <div>
                   <Image
                     src={
@@ -84,10 +88,10 @@ const Forums = () => {
                     }
                   />
                 </div>
-                <div className="hidden md:block">
-                  <div className="grid-col-1 grid max-w-[190px]">
+                <div className="">
+                  <div className="grid-col-1 grid">
                     {topic.threads && topic.threads.length > 0 ? (
-                      <div className="max-w-[190px] overflow-clip text-ellipsis text-nowrap text-slate-200">
+                      <div className="max-w-[100%] overflow-clip text-ellipsis text-nowrap text-slate-200 md:max-w-[190px]">
                         {topic.threads[0].thread_title}
                       </div>
                     ) : (

@@ -67,14 +67,14 @@ const Recents = () => {
           )}
           <div className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1">
             {isLoading ? (
-              <div className="col-span-2 h-4 w-full animate-pulse bg-slate-400"></div>
+              <div className="col-span-2 h-4 w-full animate-pulse rounded bg-slate-400"></div>
             ) : (
               <p className="col-span-2 overflow-clip text-ellipsis text-nowrap text-slate-200">
                 {post.thread_title}
               </p>
             )}
             {isLoading ? (
-              <div className="col-span-2 h-4 w-full animate-pulse bg-slate-400"></div>
+              <div className="col-span-2 h-4 w-full animate-pulse rounded bg-slate-400"></div>
             ) : (
               <>
                 <p className="text-slate-400">
