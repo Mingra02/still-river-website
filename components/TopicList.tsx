@@ -3,6 +3,9 @@ import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { TopicData } from "@/components/TopicPage";
+import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 interface TopicListProps {
   topicData: TopicData[];
@@ -17,12 +20,13 @@ const TopicList: React.FC<TopicListProps> = ({ topicData, isLoading }) => {
           {isLoading ? (
             <div className="h-10 w-[80%] animate-pulse rounded bg-slate-400"></div>
           ) : (
-            <h2 className="text-3xl font-bold text-slate-200">
+            <h2 className="text-xl font-bold text-slate-200 lg:text-3xl">
               {topicData[0].topic_title}
             </h2>
           )}
-          <div className="flex justify-center rounded bg-teal-600 px-5 py-2 font-bold text-teal-100 transition-colors hover:bg-teal-700 hover:text-teal-200">
-            New Thread
+          <div className="m-auto flex justify-center rounded bg-teal-600 px-3 py-2 font-bold text-teal-100 transition-colors hover:bg-teal-700 hover:text-teal-200 sm:px-5">
+            <p className="hidden sm:block">New Thread</p>
+            <FontAwesomeIcon icon={faPlus} className="fa-lg block sm:hidden" />
           </div>
         </div>
         {isLoading ? (
@@ -36,11 +40,13 @@ const TopicList: React.FC<TopicListProps> = ({ topicData, isLoading }) => {
           topicData.map((thread) => (
             <div
               key={thread.thread_id}
-              className="grid grid-cols-1 border-t border-white/25 py-4 text-slate-400 md:grid-cols-[1fr_250px] lg:grid-cols-[1fr_100px_250px]"
+              className="grid grid-cols-[1fr_auto] border-t border-white/25 py-4 text-slate-400 sm:grid-cols-[1fr_150px] lg:grid-cols-[1fr_100px_150px]"
             >
               <div>
-                <h3 className="text-lg font-semibold text-slate-300">
-                  {thread.thread_title}
+                <h3 className="text-lg font-semibold text-slate-300 transition-colors hover:text-indigo-400">
+                  <Link href={`/forum/thread?thread_id=${thread.thread_id}`}>
+                    {thread.thread_title}
+                  </Link>
                 </h3>
                 <p className="text-sm">
                   <span className="text-slate-200">
@@ -61,8 +67,8 @@ const TopicList: React.FC<TopicListProps> = ({ topicData, isLoading }) => {
               <div className="hidden flex-col justify-center text-sm lg:flex">
                 <div className="m-0 p-0">Posts: {thread.post_count}</div>
               </div>
-              <div className="my-2 grid h-full grid-cols-[1fr_auto] items-center justify-center gap-5 md:my-0">
-                <div className="grid grid-cols-1 text-right text-sm">
+              <div className="grid h-full items-center justify-end gap-5 sm:grid-cols-[1fr_auto] md:my-0 md:justify-center">
+                <div className="hidden flex-col justify-start text-right text-sm sm:flex">
                   <span className="ml-3 text-slate-200">
                     {thread.latest_post_author_username}
                   </span>

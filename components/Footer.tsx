@@ -99,7 +99,7 @@ const Footer = () => {
           title="Community"
           links={[
             { text: "Blog", href: "/blog" },
-            { text: "Forums", href: "/forums" },
+            { text: "Forums", href: "/forum" },
           ]}
         />
         <FooterLinkGroup

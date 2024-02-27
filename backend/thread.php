@@ -4,23 +4,27 @@
 include 'dbconn.php'; // Include your database connection file
 
 header('Content-Type: application/json');
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: *");
 
 session_start();
 
-if (!isset($_SESSION['session_id'])) {
-    http_response_code(401);
-    echo json_encode(['error' => 'No session ID found. Please log in.']);
-    exit;
-}
+// if (!isset($_SESSION['session_id'])) {
+//     http_response_code(401);
+//     echo json_encode(['error' => 'No session ID found. Please log in.']);
+//     exit;
+// }
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['thread_id'])) {
     // Handle GET request
     $threadId = $_GET['thread_id'];
 
     $stmt = $conn->prepare("
-        SELECT p.id, p.content, p.created_at, u.username AS author
+        SELECT topic.id as topic_id, topic.title as topic_title, t.id AS thread_id, t.title AS thread_title, p.id AS post_id, p.content, p.created_at, u.id AS user_id, u.username AS username
         FROM Posts p
         JOIN Users u ON p.user_id = u.id
+        JOIN Threads t ON p.thread_id = t.id
+        JOIN Topics topic ON t.topic_id = topic.id
         WHERE p.thread_id = :thread_id
         ORDER BY p.created_at DESC
     ");

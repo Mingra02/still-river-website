@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 interface Thread {
+  thread_id: number;
   user_id: number;
   user_name: string;
   thread_title: string;
@@ -91,9 +92,13 @@ const Forums = () => {
                 <div className="">
                   <div className="grid-col-1 grid">
                     {topic.threads && topic.threads.length > 0 ? (
-                      <div className="max-w-[100%] overflow-clip text-ellipsis text-nowrap text-slate-200 md:max-w-[190px]">
-                        {topic.threads[0].thread_title}
-                      </div>
+                      <Link
+                        href={`/forum/thread?thread_id=${topic.threads[0].thread_id}`}
+                      >
+                        <div className="max-w-[100%] overflow-clip text-ellipsis text-nowrap text-slate-200 transition-colors hover:text-indigo-300 md:max-w-[190px]">
+                          {topic.threads[0].thread_title}
+                        </div>
+                      </Link>
                     ) : (
                       <i className="w-full text-center text-slate-500">
                         No threads yet.

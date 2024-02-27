@@ -1,5 +1,9 @@
 <?php
 
+session_start();
+session_regenerate_id(true);
+$sessionID = session_id();
+
 $env = getenv('PHP_ENV');
 
 if ($env === 'production') {

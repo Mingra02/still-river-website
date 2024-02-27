@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 interface PostData {
@@ -69,8 +70,10 @@ const Recents = () => {
             {isLoading ? (
               <div className="col-span-2 h-4 w-full animate-pulse rounded bg-slate-400"></div>
             ) : (
-              <p className="col-span-2 overflow-clip text-ellipsis text-nowrap text-slate-200">
-                {post.thread_title}
+              <p className="col-span-2 overflow-clip text-ellipsis text-nowrap text-slate-200 transition-colors hover:text-indigo-300">
+                <Link href={`/forum/thread?thread_id=${post.thread_id}`}>
+                  {post.thread_title}
+                </Link>
               </p>
             )}
             {isLoading ? (

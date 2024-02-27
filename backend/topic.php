@@ -68,7 +68,8 @@ LIMIT :results_per_page OFFSET :offset
         $stmt = $conn->prepare("
             SELECT
                 topic.id AS topic_id,
-                topic.title AS topic_title
+                topic.title AS topic_title,
+                topic.description AS topic_description
             FROM
                 Topics topic
             WHERE
