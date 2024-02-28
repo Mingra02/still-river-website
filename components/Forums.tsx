@@ -30,7 +30,13 @@ const Forums = () => {
   const [forumData, setForumData] = React.useState([]);
 
   useEffect(() => {
-    fetch("https://www.the-still-river.com/api/forum/forum.php")
+    fetch("https://www.the-still-river.com/api/forum/forum.php", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    })
       .then((res) => res.json())
       .then((data) => {
         setForumData(data);

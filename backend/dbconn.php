@@ -1,8 +1,6 @@
 <?php
 
-session_start();
-session_regenerate_id(true);
-$sessionID = session_id();
+require __DIR__ . '/vendor/autoload.php';
 
 $env = getenv('PHP_ENV');
 

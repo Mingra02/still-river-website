@@ -20,7 +20,13 @@ const Navbar = () => {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    fetch("/api/forum/user.php")
+    fetch("https://www.the-still-river.com/api/forum/user.php", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    })
       .then((res) => res.json())
       .then((data) => {
         if (!data.error) {

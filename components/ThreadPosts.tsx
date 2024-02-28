@@ -8,6 +8,7 @@ import Statistics from "@/components/Statistics";
 import React, { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
+import AddPost from "./AddPost";
 
 export interface ThreadData {
   topic_id: number;
@@ -50,6 +51,13 @@ const ThreadPosts = () => {
     setIsLoading(true); // Set loading to true when starting to fetch
     fetch(
       `https://www.the-still-river.com/api/forum/thread.php?thread_id=${thread_id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      },
     )
       .then((res) => res.json())
       .then((data) => {
@@ -146,6 +154,7 @@ const ThreadPosts = () => {
           </div>
         ))}
       </div>
+      <AddPost thread_id={thread_id} />
     </>
   );
 };

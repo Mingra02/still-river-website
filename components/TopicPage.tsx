@@ -50,6 +50,13 @@ const TopicPage = () => {
     setIsLoading(true); // Set loading to true when starting to fetch
     fetch(
       `https://www.the-still-river.com/api/forum/topic.php?topic_id=${topicId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      },
     )
       .then((res) => res.json())
       .then((data) => {

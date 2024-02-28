@@ -1,6 +1,7 @@
 <?php
 
-session_start(); 
+session_save_path(__DIR__ . '/sessions');
+session_start();
 
 require 'dbconn.php';
 
@@ -15,22 +16,22 @@ $sessionId = $_SESSION['session_id'];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents('php://input'), true);
 
-    if (!isset($data['content'], $data['thread_id'])) {
+    if (!isset($data['message'], $data['thread_id'])) {
         http_response_code(400);
-        echo json_encode(['error' => 'Missing required fields: content or thread_id.']);
+        echo json_encode(['error' => 'Missing required fields: message or thread_id.']);
         exit;
     }
 
-    $content = $data['content'];
+    $message = $data['message'];
     $threadId = $data['thread_id'];
 
     try {
         $stmt = $conn->prepare("
             INSERT INTO Posts (content, thread_id, user_id, created_at) 
-            VALUES (:content, :thread_id, (SELECT id FROM Users WHERE session_id = :session_id), NOW())
+            VALUES (:message, :thread_id, (SELECT id FROM Users WHERE session_id = :session_id), NOW())
         ");
         $stmt->execute([
-            ':content' => $content,
+            ':message' => $message,
             ':thread_id' => $threadId,
             ':session_id' => $sessionId
         ]);

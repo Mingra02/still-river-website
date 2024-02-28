@@ -1,12 +1,16 @@
 <?php
 
+session_save_path(__DIR__ . '/sessions');
+
+session_start();
+
 require __DIR__ . '/vendor/autoload.php';
 
 use League\OAuth2\Client\Provider\Google;
 
-session_save_path(__DIR__ . '/sessions');
-
-session_start();
+header('Content-Type: application/json');
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: *");
 
 $env = getenv('PHP_ENV');
 

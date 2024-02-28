@@ -1,3 +1,4 @@
+import AddPost from "@/components/AddPost";
 import ForumNavigation from "@/components/ForumNavigation";
 import Lights from "@/components/Lights";
 import ThreadPosts from "@/components/ThreadPosts";

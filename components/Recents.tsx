@@ -39,7 +39,13 @@ const Recents = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch("https://www.the-still-river.com/api/forum/recent.php")
+    fetch("https://www.the-still-river.com/api/forum/recent.php", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    })
       .then((res) => res.json())
       .then((data: PostData[]) => {
         setPostData(data);

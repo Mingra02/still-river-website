@@ -1,9 +1,5 @@
 <?php
 
-require __DIR__ . '/vendor/autoload.php';
-
-use League\OAuth2\Client\Provider\Google;
-
 session_save_path(__DIR__ . '/sessions');
 
 session_start();
@@ -22,6 +18,11 @@ session_set_cookie_params([
 ]);
 
 $_SESSION['expiry'] = time() + 86400;
+
+require __DIR__ . '/vendor/autoload.php';
+
+use League\OAuth2\Client\Provider\Google;
+
 
 $redirect_url = "https://www.the-still-river.com/";
 

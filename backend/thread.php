@@ -7,8 +7,6 @@ header('Content-Type: application/json');
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
 
-session_start();
-
 // if (!isset($_SESSION['session_id'])) {
 //     http_response_code(401);
 //     echo json_encode(['error' => 'No session ID found. Please log in.']);
@@ -26,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['thread_id'])) {
         JOIN Threads t ON p.thread_id = t.id
         JOIN Topics topic ON t.topic_id = topic.id
         WHERE p.thread_id = :thread_id
-        ORDER BY p.created_at DESC
+        ORDER BY p.created_at ASC;
     ");
     $stmt->bindParam(':thread_id', $threadId, PDO::PARAM_INT);
     $stmt->execute();
