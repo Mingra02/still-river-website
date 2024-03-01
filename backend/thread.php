@@ -1,17 +1,29 @@
 <?php
 
+session_save_path(__DIR__ . '/sessions');
+
+session_start();
+
 // Assuming you have a PDO connection setup as $conn
 include 'dbconn.php'; // Include your database connection file
 
 header('Content-Type: application/json');
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Headers: *");
+header('Access-Control-Allow-Headers: Content-Type, Authorization');
+header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
+header("Access-Control-Allow-Credentials: true");
 
-// if (!isset($_SESSION['session_id'])) {
-//     http_response_code(401);
-//     echo json_encode(['error' => 'No session ID found. Please log in.']);
-//     exit;
-// }
+$allowedOrigins = array(
+    'https://www.the-still-river.com',
+    'https://the-still-river.com',
+    'http://localhost:3000',
+    'https://mingra02.github.io/still-river-website/'
+);
+
+if (isset($_SERVER['HTTP_ORIGIN'])) {
+    if (in_array($_SERVER['HTTP_ORIGIN'], $allowedOrigins)) {
+        header('Access-Control-Allow-Origin: ' . $_SERVER['HTTP_ORIGIN']);
+    }
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['thread_id'])) {
     // Handle GET request
@@ -34,34 +46,52 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['thread_id'])) {
     echo json_encode($posts);
 
 } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Handle POST request
-    $data = json_decode(file_get_contents('php://input'), true);
-
-    if (!isset($data['title'], $data['content'])) {
-        http_response_code(400);
-        echo json_encode(['error' => 'Missing title or content']);
+    // Check if the user is logged in
+    if (!isset($_SESSION['session_id'])) {
+        http_response_code(401);
+        echo json_encode(['error' => 'Please log in to create a thread']);
         exit;
     }
 
     $sessionId = $_SESSION['session_id'];
 
+    // Prepare SQL statement
+    $stmt = $conn->prepare("SELECT username, id FROM Users WHERE session_id = :session_id");
+    $stmt->bindParam(':session_id', $sessionId);
+
+    // Execute the statement
+    $stmt->execute();
+
+    // Fetch the result
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // Handle POST request
+    $data = json_decode(file_get_contents('php://input'), true);
+
+    if (!isset($data['title'], $data['content'], $data['topic_id'])) {
+        http_response_code(400);
+        echo json_encode(['error' => 'Missing title or content']);
+        exit;
+    }
+
     $stmt = $conn->prepare("
-        INSERT INTO Threads (title, user_id, created_at)
-        VALUES (:title, (SELECT id FROM Users WHERE session_id = :session_id), NOW());
+        INSERT INTO Threads (title, user_id, topic_id, created_at)
+        VALUES (:title, :user_id, :topic_id, NOW());
     ");
     $stmt->execute([
         ':title' => $data['title'],
-        ':session_id' => $sessionId
+        ':topic_id' => $data['topic_id'],
+        ':user_id' => $result['id']
     ]);
     $threadId = $conn->lastInsertId();
 
     $stmt = $conn->prepare("
         INSERT INTO Posts (thread_id, user_id, content, created_at)
-        VALUES (:thread_id, (SELECT id FROM Users WHERE session_id = :session_id), :content, NOW());
+        VALUES (:thread_id, :user_id, :content, NOW());
     ");
     $stmt->execute([
         ':thread_id' => $threadId,
-        ':session_id' => $sessionId,
+        ':user_id' => $result['id'],
         ':content' => $data['content']
     ]);
 

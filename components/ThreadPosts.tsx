@@ -5,7 +5,7 @@ import ForumNavigation from "@/components/ForumNavigation";
 import Login from "@/components/Login";
 import Recents from "@/components/Recents";
 import Statistics from "@/components/Statistics";
-import React, { Suspense, useEffect, useState } from "react";
+import React, { Suspense, useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import AddPost from "./AddPost";
@@ -47,35 +47,38 @@ const ThreadPosts = () => {
 
   const thread_id = searchParams ? searchParams.get("thread_id") : "1";
 
-  useEffect(() => {
+  const fetchThreadData = useCallback(async () => {
     setIsLoading(true); // Set loading to true when starting to fetch
-    fetch(
-      `https://www.the-still-river.com/api/forum/thread.php?thread_id=${thread_id}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-      },
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setThreadData(data);
-        setIsLoading(false); // Set loading to false once data is received
-        setBreadCrumbs([
-          { name: "Forum", url: "/forum" },
-          {
-            name: data[0].topic_title,
-            url: `/forum/topic?topic_id=${data[0].topic_id}`,
+    try {
+      const response = await fetch(
+        `https://www.the-still-river.com/api/forum/thread.php?thread_id=${thread_id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
           },
-        ]);
-      })
-      .catch((error) => {
-        console.error("Failed to fetch topic data:", error);
-        setIsLoading(false); // Ensure loading is set to false even on error
-      });
+          credentials: "include",
+        },
+      );
+      const data = await response.json();
+      setThreadData(data);
+      setIsLoading(false); // Set loading to false once data is received
+      setBreadCrumbs([
+        { name: "Forum", url: "/forum" },
+        {
+          name: data[0].topic_title,
+          url: `/forum/topic?topic_id=${data[0].topic_id}`,
+        },
+      ]);
+    } catch (error) {
+      console.error("Failed to fetch topic data:", error);
+      setIsLoading(false); // Ensure loading is set to false even on error
+    }
   }, [thread_id]);
+
+  useEffect(() => {
+    fetchThreadData();
+  }, [fetchThreadData]);
 
   return (
     <>
@@ -154,7 +157,7 @@ const ThreadPosts = () => {
           </div>
         ))}
       </div>
-      <AddPost thread_id={thread_id} />
+      <AddPost thread_id={thread_id} onPostSubmit={fetchThreadData} />
     </>
   );
 };

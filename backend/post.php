@@ -3,6 +3,25 @@
 session_save_path(__DIR__ . '/sessions');
 session_start();
 
+
+header('Content-Type: application/json');
+header('Access-Control-Allow-Headers: Content-Type, Authorization');
+header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
+header("Access-Control-Allow-Credentials: true");
+
+$allowedOrigins = array(
+    'https://www.the-still-river.com',
+    'https://the-still-river.com',
+    'http://localhost:3000',
+    'https://mingra02.github.io/still-river-website/'
+);
+
+if (isset($_SERVER['HTTP_ORIGIN'])) {
+    if (in_array($_SERVER['HTTP_ORIGIN'], $allowedOrigins)) {
+        header('Access-Control-Allow-Origin: ' . $_SERVER['HTTP_ORIGIN']);
+    }
+}
+
 require 'dbconn.php';
 
 if (!isset($_SESSION['session_id'])) {

@@ -24,10 +24,15 @@ const TopicList: React.FC<TopicListProps> = ({ topicData, isLoading }) => {
               {topicData[0].topic_title}
             </h2>
           )}
-          <div className="m-auto flex justify-center rounded bg-teal-600 px-3 py-2 font-bold text-teal-100 transition-colors hover:bg-teal-700 hover:text-teal-200 sm:px-5">
-            <p className="hidden sm:block">New Thread</p>
-            <FontAwesomeIcon icon={faPlus} className="fa-lg block sm:hidden" />
-          </div>
+          <Link href={`/forum/thread/new?topic_id=${topicData[0].topic_id}`}>
+            <div className="m-auto flex justify-center rounded bg-teal-600 px-3 py-2 font-bold text-teal-100 transition-colors hover:bg-teal-700 hover:text-teal-200 sm:px-5">
+              <p className="hidden sm:block">New Thread</p>
+              <FontAwesomeIcon
+                icon={faPlus}
+                className="fa-lg block sm:hidden"
+              />
+            </div>
+          </Link>
         </div>
         {isLoading ? (
           <div className="mb-6 mt-2 h-4 w-[60%] animate-pulse rounded bg-slate-400"></div>

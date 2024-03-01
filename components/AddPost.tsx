@@ -1,11 +1,34 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 interface AddPostProps {
   thread_id: string | null;
+  onPostSubmit: () => void;
 }
 
-const AddPost: React.FC<AddPostProps> = ({ thread_id }) => {
+interface User {
+  username: string;
+  id: number;
+}
+
+const AddPost: React.FC<AddPostProps> = ({ thread_id, onPostSubmit }) => {
   const [message, setMessage] = useState("");
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    fetch("https://www.the-still-river.com/api/forum/user.php", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (!data.error) {
+          setUser(data);
+        }
+      });
+  }, []);
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -24,8 +47,13 @@ const AddPost: React.FC<AddPostProps> = ({ thread_id }) => {
 
     if (response.ok) {
       setMessage("");
+      onPostSubmit();
     }
   };
+
+  if (!user) {
+    return null;
+  }
 
   return (
     <div className="mt-8 rounded-xl bg-slate-950/70 p-6 pb-2 shadow-lg">
