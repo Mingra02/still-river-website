@@ -72,10 +72,10 @@ const SocialLinks = () => {
       <Link href="http://www.instagram.com/">
         <FontAwesomeIcon icon={faInstagram} />
       </Link>
-      <Link href="http://www.github.com/">
+      <Link href="https://github.com/Still-River">
         <FontAwesomeIcon icon={faGithub} />
       </Link>
-      <Link href="http://www.linkedin.com/">
+      <Link href="https://www.linkedin.com/in/michael-s-ingram/">
         <FontAwesomeIcon icon={faLinkedin} />
       </Link>
     </div>

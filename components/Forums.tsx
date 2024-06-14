@@ -65,7 +65,7 @@ const Forums = () => {
                     {topic.topic_title}
                   </h3>
                 </Link>
-                <p className="text-sm text-slate-400">
+                <p className="pr-2 text-sm text-slate-400">
                   {topic.topic_description}
                 </p>
               </div>

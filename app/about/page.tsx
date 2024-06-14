@@ -46,7 +46,7 @@ const Value: React.FC<ValueProps> = ({ title, description }) => {
 export default function About() {
   return (
     <>
-      <section className="m-auto -mb-6 mt-20 grid max-w-7xl grid-cols-1 gap-8 overflow-clip px-8 sm:mt-32 lg:mb-16 lg:grid-cols-2">
+      <section className="m-auto -mb-6 mt-20 grid max-w-7xl grid-cols-1 gap-8 overflow-clip px-8 sm:mt-32 lg:mb-16 lg:grid-cols-2 lg:overflow-visible">
         <div>
           <h2 className="m-auto max-w-lg text-3xl font-bold text-slate-200 lg:text-5xl">
             Enhancing the power of data through bespoke solutions

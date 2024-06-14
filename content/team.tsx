@@ -81,7 +81,11 @@ export const TEAM = [
         label: "LinkedIn",
         icon: faLinkedin,
       },
-      { href: "https://www.github.com/", label: "GitHub", icon: faGithub },
+      {
+        href: "https://github.com/Still-River",
+        label: "GitHub",
+        icon: faGithub,
+      },
       {
         href: "mailto:michael@the-still-river.com",
         label: "Email",
@@ -116,120 +120,120 @@ export const TEAM = [
     ],
     publications: [],
   },
-  {
-    url: "ting-guo",
-    name: "Ting Guo",
-    role: "CFO",
-    image: "/img/placeholder-female.webp",
-    short_description:
-      "Ting is a seasoned financial professional with a passion for leveraging data to drive strategic business decisions. She has a wealth of experience in predictive analytics, machine learning, and developing custom data applications.",
-    long_description:
-      "Experienced Senior Scientist with a focus on biopharmaceutical process development and team leadership at 2seventy bio and Amgen. Expert in vector development, GMP manufacturing technology transfers, and regulatory documentation. Leads innovation and digitalization in production processes. Strong background in tissue engineering with skills in data analysis, project management, and cross-functional collaboration.",
-    education: [
-      {
-        degree: "Ph.D. in Biomaterials and Tissue Engineering",
-        school: "University of Maryland",
-        dates: "2013 - 2018",
-      },
-      {
-        degree: "M.Eng. in Bioengineering",
-        school: "Cornell University",
-        dates: "2011 - 2012",
-      },
-    ],
-    skills: [
-      {
-        group_name: "Process Development",
-        skills: [
-          "Tissue Engineering",
-          "Cell Culture",
-          "Protein Purification",
-          "Protein Assays",
-        ],
-      },
-      {
-        group_name: "Data Analysis",
-        skills: [
-          "Statistics",
-          "Python",
-          "Electronic Lab Notebooks",
-          "Spotfire",
-        ],
-      },
-      {
-        group_name: "Management",
-        skills: [
-          "Critical Thinking",
-          "Project Management",
-          "Problem Solving",
-          "Communication",
-          "Cross-Functional Team Leadership",
-        ],
-      },
-    ],
-    experience: [
-      {
-        title: "Senior Scientist and Group Lead",
-        department: "Vector Process Development",
-        company: "2seventy bio",
-        dates: "Dec 2021 - Present",
-        bullets: [
-          "Group lead and manager for the vector development upstream team",
-          "Vector process development (oversee both upstream and downstream) lead for CMC pipeline projects",
-          "Technology transfer lead for Phase I programs GMP manufacturing at CMO",
-          "Initiated and led multiple innovation projects to enhance the LVV production process through external collaborations",
-          "Authored or reviewed regulatory documents including BLA filing, IND, and pre-IND briefing book",
-          "Initiated and led the vector department digitalization program with data science group",
-        ],
-      },
-      {
-        title: "Scientist",
-        department: "Process Development",
-        company: "Amgen",
-        dates: "Sep 2018 - Dec 2021",
-        bullets: [
-          "Upstream lead for commercial process development: develop commercial production processes for novel Amgen molecules by collaborating with cross-functional groups and CDMOs including manufacturing, attribute sciences, drug product, and technology transfer teams.",
-          "Market Application: leading the upstream effort to draft filing sections and review documents, preparing RTQs.",
-          "Platform Advancement: shape Amgen’s future platform through media sourcing with external vendors, media development for flex factory and manufacturing dematerialization.",
-          "Amgen DST compliance lead: lead the effort to facilitate compliance alignment and training by working and coordinating with different functional groups as the Cambridge representative.",
-          "Trained new hires and mentored Amgen-Academia collaboration project.",
-        ],
-      },
-    ],
-    social_links: [
-      {
-        href: "https://www.linkedin.com/in/tingguobme/",
-        label: "LinkedIn",
-        icon: faLinkedin,
-      },
-      {
-        href: "mailto:ting@the-still-river.com",
-        label: "Email",
-        icon: faEnvelope,
-      },
-    ],
-    certifications: [
-      {
-        name: "Project Management: The Basics for Success",
-        issuer: "Coursera",
-        link: "https://www.coursera.org/account/accomplishments/certificate/3C4CPLDC4KVL",
-        img: "/img/certifications/coursera.png",
-      },
-      {
-        name: "Financial Markets (with Honors)",
-        issuer: "Coursera",
-        link: "https://www.coursera.org/account/accomplishments/certificate/2GLULXS3F5LS",
-        img: "/img/certifications/coursera.png",
-      },
-      {
-        name: "Introduction to Portoflio Construction and Analysis with Python",
-        issuer: "Coursera",
-        link: "https://www.coursera.org/account/accomplishments/certificate/VPZ5AHVVVPGT",
-        img: "/img/certifications/coursera.png",
-      },
-    ],
-    publications: [],
-  },
+  // {
+  //   url: "ting-guo",
+  //   name: "Ting Guo",
+  //   role: "CFO",
+  //   image: "/img/placeholder-female.webp",
+  //   short_description:
+  //     "Ting is a seasoned financial professional with a passion for leveraging data to drive strategic business decisions. She has a wealth of experience in predictive analytics, machine learning, and developing custom data applications.",
+  //   long_description:
+  //     "Experienced Senior Scientist with a focus on biopharmaceutical process development and team leadership at 2seventy bio and Amgen. Expert in vector development, GMP manufacturing technology transfers, and regulatory documentation. Leads innovation and digitalization in production processes. Strong background in tissue engineering with skills in data analysis, project management, and cross-functional collaboration.",
+  //   education: [
+  //     {
+  //       degree: "Ph.D. in Biomaterials and Tissue Engineering",
+  //       school: "University of Maryland",
+  //       dates: "2013 - 2018",
+  //     },
+  //     {
+  //       degree: "M.Eng. in Bioengineering",
+  //       school: "Cornell University",
+  //       dates: "2011 - 2012",
+  //     },
+  //   ],
+  //   skills: [
+  //     {
+  //       group_name: "Process Development",
+  //       skills: [
+  //         "Tissue Engineering",
+  //         "Cell Culture",
+  //         "Protein Purification",
+  //         "Protein Assays",
+  //       ],
+  //     },
+  //     {
+  //       group_name: "Data Analysis",
+  //       skills: [
+  //         "Statistics",
+  //         "Python",
+  //         "Electronic Lab Notebooks",
+  //         "Spotfire",
+  //       ],
+  //     },
+  //     {
+  //       group_name: "Management",
+  //       skills: [
+  //         "Critical Thinking",
+  //         "Project Management",
+  //         "Problem Solving",
+  //         "Communication",
+  //         "Cross-Functional Team Leadership",
+  //       ],
+  //     },
+  //   ],
+  //   experience: [
+  //     {
+  //       title: "Senior Scientist and Group Lead",
+  //       department: "Vector Process Development",
+  //       company: "2seventy bio",
+  //       dates: "Dec 2021 - Present",
+  //       bullets: [
+  //         "Group lead and manager for the vector development upstream team",
+  //         "Vector process development (oversee both upstream and downstream) lead for CMC pipeline projects",
+  //         "Technology transfer lead for Phase I programs GMP manufacturing at CMO",
+  //         "Initiated and led multiple innovation projects to enhance the LVV production process through external collaborations",
+  //         "Authored or reviewed regulatory documents including BLA filing, IND, and pre-IND briefing book",
+  //         "Initiated and led the vector department digitalization program with data science group",
+  //       ],
+  //     },
+  //     {
+  //       title: "Scientist",
+  //       department: "Process Development",
+  //       company: "Amgen",
+  //       dates: "Sep 2018 - Dec 2021",
+  //       bullets: [
+  //         "Upstream lead for commercial process development: develop commercial production processes for novel Amgen molecules by collaborating with cross-functional groups and CDMOs including manufacturing, attribute sciences, drug product, and technology transfer teams.",
+  //         "Market Application: leading the upstream effort to draft filing sections and review documents, preparing RTQs.",
+  //         "Platform Advancement: shape Amgen’s future platform through media sourcing with external vendors, media development for flex factory and manufacturing dematerialization.",
+  //         "Amgen DST compliance lead: lead the effort to facilitate compliance alignment and training by working and coordinating with different functional groups as the Cambridge representative.",
+  //         "Trained new hires and mentored Amgen-Academia collaboration project.",
+  //       ],
+  //     },
+  //   ],
+  //   social_links: [
+  //     {
+  //       href: "https://www.linkedin.com/in/tingguobme/",
+  //       label: "LinkedIn",
+  //       icon: faLinkedin,
+  //     },
+  //     {
+  //       href: "mailto:ting@the-still-river.com",
+  //       label: "Email",
+  //       icon: faEnvelope,
+  //     },
+  //   ],
+  //   certifications: [
+  //     {
+  //       name: "Project Management: The Basics for Success",
+  //       issuer: "Coursera",
+  //       link: "https://www.coursera.org/account/accomplishments/certificate/3C4CPLDC4KVL",
+  //       img: "/img/certifications/coursera.png",
+  //     },
+  //     {
+  //       name: "Financial Markets (with Honors)",
+  //       issuer: "Coursera",
+  //       link: "https://www.coursera.org/account/accomplishments/certificate/2GLULXS3F5LS",
+  //       img: "/img/certifications/coursera.png",
+  //     },
+  //     {
+  //       name: "Introduction to Portoflio Construction and Analysis with Python",
+  //       issuer: "Coursera",
+  //       link: "https://www.coursera.org/account/accomplishments/certificate/VPZ5AHVVVPGT",
+  //       img: "/img/certifications/coursera.png",
+  //     },
+  //   ],
+  //   publications: [],
+  // },
   {
     url: "open-position",
     name: "Open Position",
