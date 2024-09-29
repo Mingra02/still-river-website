@@ -36,8 +36,10 @@ SELECT
     t.created_at AS thread_created_at,
     thread_author.id AS thread_author_id,
     thread_author.username AS thread_author_username,
+    thread_author.avatar as thread_author_avatar,
     latest_post.Author_ID AS latest_post_author_id,
     latest_post.Author_Username AS latest_post_author_username,
+    latest_post.Author_Avatar AS latest_post_author_avatar, -- Corrected typo from Avater to Avatar
     latest_post.Latest_Post_Created_At AS latest_post_created_at,
     COUNT(p.id) AS post_count
 FROM
@@ -50,13 +52,18 @@ LEFT JOIN
             p.thread_id,
             p.user_id AS Author_ID,
             u.username AS Author_Username,
-            MAX(p.created_at) AS Latest_Post_Created_At
+            u.avatar AS Author_Avatar, -- Corrected typo from Avater to Avatar
+            p.created_at AS Latest_Post_Created_At
         FROM
             Posts p
         JOIN
             Users u ON p.user_id = u.id
-        GROUP BY
-            p.thread_id, p.user_id, u.username
+        WHERE
+            p.created_at IN (
+                SELECT MAX(p2.created_at)
+                FROM Posts p2
+                WHERE p2.thread_id = p.thread_id
+            )
     ) AS latest_post ON t.id = latest_post.thread_id
 LEFT JOIN
     Posts p ON t.id = p.thread_id
@@ -65,9 +72,7 @@ JOIN
 WHERE
     t.topic_id = :topic_id
 GROUP BY
-    Thread_ID,
-    Thread_Author_ID,
-    Latest_Post_Author_ID
+    t.id, topic.id, thread_author.id, latest_post.Author_ID, latest_post.Latest_Post_Created_At
 ORDER BY
     latest_post.Latest_Post_Created_At DESC
 LIMIT :results_per_page OFFSET :offset

@@ -32,6 +32,7 @@ SELECT
     t.title AS Thread_Title,
     u.id AS user_id,
     u.username AS user_name, 
+    u.avatar AS user_avatar,
     p.created_at AS post_date,
     COALESCE(thread_count.Thread_Count, 0) AS Thread_Count,
     COALESCE(post_count.Post_Count, 0) AS Post_Count
@@ -106,6 +107,7 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             'thread_id' => $row['Thread_ID'],
             'thread_title' => $row['Thread_Title'],
             'user_id' => $row['user_id'],
+            'user_avatar' => $row['user_avatar'],
             'user_name' => $row['user_name'],
             'post_date' => $row['post_date']
         ];

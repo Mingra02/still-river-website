@@ -20,6 +20,7 @@ export interface ThreadData {
   created_at: string;
   user_id: number;
   username: string;
+  avatar: string;
 }
 
 const ThreadPosts = () => {
@@ -34,6 +35,7 @@ const ThreadPosts = () => {
       created_at: "",
       user_id: 0,
       username: "",
+      avatar: "0",
     },
   ]);
 
@@ -114,8 +116,8 @@ const ThreadPosts = () => {
                 <div className="h-10 w-10 animate-pulse rounded-full bg-slate-600 md:h-32 md:w-32"></div>
               ) : (
                 <Image
-                  src={`https://www.the-still-river.com/img/forum/avatars/${post.user_id}.jpg`}
-                  alt={post.username}
+                  src={`https://www.the-still-river.com/img/forum/avatars/${post.avatar == "0" ? "0" : post.user_id}.jpg`}
+                  alt={`${post.username}`}
                   width={128}
                   height={128}
                   className="h-10 w-10 rounded-full md:h-32 md:w-32"

@@ -7,6 +7,7 @@ interface Thread {
   thread_id: number;
   user_id: number;
   user_name: string;
+  user_avatar: string;
   thread_title: string;
   post_date: string;
 }
@@ -78,7 +79,7 @@ const Forums = () => {
                   <Image
                     src={
                       topic.threads && topic.threads.length > 0
-                        ? `https://www.the-still-river.com/img/forum/avatars/${topic.threads[0].user_id}.jpg`
+                        ? `https://www.the-still-river.com/img/forum/avatars/${topic.threads[0].user_avatar == "0" ? "0" : topic.threads[0].user_id}.jpg`
                         : `https://www.the-still-river.com/img/placeholder-male.webp`
                     }
                     alt={

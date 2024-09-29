@@ -17,10 +17,12 @@ export interface TopicData {
   thread_title: string;
   thread_author_id: number;
   thread_author_username: string;
+  thread_author_avatar: string;
   post_count: number;
   latest_post_author_id: number;
   latest_post_author_username: string;
   latest_post_created_at: string;
+  latest_post_author_avatar: string;
 }
 
 const TopicPage = () => {
@@ -33,10 +35,12 @@ const TopicPage = () => {
       thread_title: "",
       thread_author_id: 0,
       thread_author_username: "",
+      thread_author_avatar: "",
       post_count: 0,
       latest_post_author_id: 0,
       latest_post_author_username: "",
       latest_post_created_at: "",
+      latest_post_author_avatar: "",
     },
   ]);
   const [isLoading, setIsLoading] = useState(true);

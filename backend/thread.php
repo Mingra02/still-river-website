@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['thread_id'])) {
     $threadId = $_GET['thread_id'];
 
     $stmt = $conn->prepare("
-        SELECT topic.id as topic_id, topic.title as topic_title, t.id AS thread_id, t.title AS thread_title, p.id AS post_id, p.content, p.created_at, u.id AS user_id, u.username AS username
+        SELECT topic.id as topic_id, topic.title as topic_title, t.id AS thread_id, t.title AS thread_title, p.id AS post_id, p.content, p.created_at, u.id AS user_id, u.username AS username, u.avatar as avatar
         FROM Posts p
         JOIN Users u ON p.user_id = u.id
         JOIN Threads t ON p.thread_id = t.id

@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $offset = $page * $resultsPerPage;
 
     $stmt = $conn->prepare("
-    SELECT t.id AS thread_id, t.title AS thread_title, u.id AS user_id, u.username, p.created_at
+    SELECT t.id AS thread_id, t.title AS thread_title, u.id AS user_id, u.username, u.avatar, p.created_at
     FROM (
         SELECT thread_id, MAX(id) AS post_id
         FROM Posts

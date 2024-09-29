@@ -90,7 +90,7 @@ const TopicList: React.FC<TopicListProps> = ({ topicData, isLoading }) => {
                 </div>
                 <div>
                   <Image
-                    src={`https://www.the-still-river.com/img/forum/avatars/${thread.latest_post_author_id}.jpg`}
+                    src={`https://www.the-still-river.com/img/forum/avatars/${thread.latest_post_author_avatar == "0" ? "0" : thread.latest_post_author_id}.jpg`}
                     alt={thread.latest_post_author_username}
                     width={40}
                     height={40}

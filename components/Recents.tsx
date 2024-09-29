@@ -8,6 +8,7 @@ interface PostData {
   thread_id: number;
   user_id: number;
   username: string;
+  avatar: string;
   thread_title: string;
   created_at: string;
 }
@@ -18,6 +19,7 @@ const Recents = () => {
       thread_id: 0,
       user_id: 0,
       username: "",
+      avatar: "",
       thread_title: "",
       created_at: "",
     },
@@ -25,6 +27,7 @@ const Recents = () => {
       thread_id: 1,
       user_id: 0,
       username: "",
+      avatar: "",
       thread_title: "",
       created_at: "",
     },
@@ -32,6 +35,7 @@ const Recents = () => {
       thread_id: 2,
       user_id: 0,
       username: "",
+      avatar: "",
       thread_title: "",
       created_at: "",
     },
@@ -65,7 +69,7 @@ const Recents = () => {
             <div className="h-10 w-10 animate-pulse rounded-full bg-slate-400"></div>
           ) : (
             <Image
-              src={`https://www.the-still-river.com/img/forum/avatars/${post.user_id}.jpg`}
+              src={`https://www.the-still-river.com/img/forum/avatars/${post.avatar == "0" ? "0" : post.user_id}.jpg`}
               alt={post.username}
               width={40}
               height={40}
