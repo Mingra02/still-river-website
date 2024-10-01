@@ -103,9 +103,8 @@ const NewThread = () => {
               {topicData[0].topic_description}
             </p>
           )}
-          <Suspense fallback={<div>Loading...</div>}>
-            <AddThread topic_id={topicId} />
-          </Suspense>
+          <AddThread topic_id={topicId} />
+          <Suspense fallback={<div>Loading...</div>}></Suspense>
         </div>
         <div className="m-auto grid w-[300px] grid-cols-1 gap-4 md:w-full md:grid-cols-2 md:items-start lg:grid-cols-3 xl:flex xl:h-full xl:w-[300px] xl:flex-col">
           <Login />

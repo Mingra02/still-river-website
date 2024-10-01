@@ -1,4 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense, useRef } from "react";
+import "@mdxeditor/editor/style.css";
+import { MDXEditorMethods } from "@mdxeditor/editor";
+import Editor from "@/components/Editor";
 
 interface AddThreadProps {
   topic_id: string | null;
@@ -10,6 +13,7 @@ interface User {
 }
 
 const AddThread: React.FC<AddThreadProps> = ({ topic_id }) => {
+  const mdxEditorRef = useRef<MDXEditorMethods>(null);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [user, setUser] = useState<User | null>(null);
@@ -33,6 +37,9 @@ const AddThread: React.FC<AddThreadProps> = ({ topic_id }) => {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
+    let markdown = mdxEditorRef.current?.getMarkdown() || "";
+    setContent(markdown);
+
     const response = await fetch(
       "https://www.the-still-river.com/api/forum/thread.php",
       {
@@ -40,14 +47,13 @@ const AddThread: React.FC<AddThreadProps> = ({ topic_id }) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ title, content, topic_id }),
+        body: JSON.stringify({ title, content: markdown, topic_id }),
         credentials: "include",
       },
     );
 
     if (response.ok) {
       setTitle("");
-      setContent("");
       const data = await response.json();
       const thread_id = data.thread_id;
       window.location.href = `/forum/thread/?thread_id=${thread_id}`;
@@ -75,12 +81,9 @@ const AddThread: React.FC<AddThreadProps> = ({ topic_id }) => {
       <label htmlFor="content" className="text-xl font-bold text-slate-200">
         Content
       </label>
-      <textarea
-        name="content"
-        className="h-48 rounded border border-white/10 bg-white/15 p-2 text-slate-400 transition duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-      ></textarea>
+      <Suspense>
+        <Editor markdown={content} editorRef={mdxEditorRef} />
+      </Suspense>
       <div className="flex w-full justify-end">
         <button
           type="submit"

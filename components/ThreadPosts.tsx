@@ -9,6 +9,8 @@ import React, { Suspense, useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import AddPost from "./AddPost";
+import Markdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 export interface ThreadData {
   topic_id: number;
@@ -154,7 +156,9 @@ const ThreadPosts = () => {
                   })}
                 </p>
               )}
-              <p className="text-slate-400">{post.content}</p>
+              <div className="prose prose-invert !max-w-none">
+                <Markdown remarkPlugins={[remarkGfm]}>{post.content}</Markdown>
+              </div>
             </div>
           </div>
         ))}

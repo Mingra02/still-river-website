@@ -1,4 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useRef, useState } from "react";
+import "@mdxeditor/editor/style.css";
+import { MDXEditorMethods } from "@mdxeditor/editor";
+import Editor from "@/components/Editor";
 
 interface AddPostProps {
   thread_id: string | null;
@@ -11,7 +14,7 @@ interface User {
 }
 
 const AddPost: React.FC<AddPostProps> = ({ thread_id, onPostSubmit }) => {
-  const [message, setMessage] = useState("");
+  const mdxEditorRef = useRef<MDXEditorMethods>(null);
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
@@ -33,6 +36,8 @@ const AddPost: React.FC<AddPostProps> = ({ thread_id, onPostSubmit }) => {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
+    let message = mdxEditorRef.current?.getMarkdown() || "";
+
     const response = await fetch(
       "https://www.the-still-river.com/api/forum/post.php",
       {
@@ -46,7 +51,6 @@ const AddPost: React.FC<AddPostProps> = ({ thread_id, onPostSubmit }) => {
     );
 
     if (response.ok) {
-      setMessage("");
       onPostSubmit();
     }
   };
@@ -61,12 +65,9 @@ const AddPost: React.FC<AddPostProps> = ({ thread_id, onPostSubmit }) => {
         <label htmlFor="post" className="text-xl font-bold text-slate-200">
           Reply
         </label>
-        <textarea
-          name="message"
-          className="h-48 rounded border border-white/10 bg-white/15 p-2 text-slate-400 transition duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-        ></textarea>
+        <Suspense>
+          <Editor markdown={""} editorRef={mdxEditorRef} />
+        </Suspense>
         <div className="flex w-full justify-end">
           <button
             type="submit"
