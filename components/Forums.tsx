@@ -74,7 +74,7 @@ const Forums = () => {
                 <div className="m-0 p-0">Threads: {topic.thread_count}</div>
                 <div className="m-0 p-0">Posts: {topic.post_count}</div>
               </div>
-              <div className="my-2 grid h-full grid-cols-[auto_1fr] items-center justify-center gap-5 md:my-0">
+              <div className="my-2 grid h-full max-w-full grid-cols-[minmax(40px,auto)_1fr] items-center justify-start gap-5 overflow-hidden text-ellipsis text-nowrap md:my-0">
                 <div>
                   <Image
                     src={
@@ -96,13 +96,13 @@ const Forums = () => {
                     }
                   />
                 </div>
-                <div className="">
-                  <div className="grid-col-1 grid">
+                <div className="w-full max-w-full">
+                  <div className="grid-col-1 grid w-full max-w-full overflow-hidden text-ellipsis text-nowrap">
                     {topic.threads && topic.threads.length > 0 ? (
                       <Link
                         href={`/forum/thread?thread_id=${topic.threads[0].thread_id}`}
                       >
-                        <div className="max-w-[100%] overflow-clip text-ellipsis text-nowrap text-slate-200 transition-colors hover:text-indigo-300 md:max-w-[190px]">
+                        <div className="w-full overflow-clip text-ellipsis text-nowrap text-slate-200 transition-colors hover:text-indigo-300 md:max-w-[190px]">
                           {topic.threads[0].thread_title}
                         </div>
                       </Link>
