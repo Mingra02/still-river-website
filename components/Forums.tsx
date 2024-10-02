@@ -123,8 +123,12 @@ const Forums = () => {
                           day: "numeric",
                         })}
                       </span>
-                      <span className="ml-3 text-slate-200">
-                        {topic.threads[0].user_name}
+                      <span className="ml-3 text-slate-200 transition-colors hover:text-indigo-400">
+                        <Link
+                          href={`/forum/users?user_id=${topic.threads[0].user_id}`}
+                        >
+                          {topic.threads[0].user_name}
+                        </Link>
                       </span>
                     </div>
                   )}

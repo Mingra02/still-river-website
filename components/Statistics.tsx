@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 interface ForumStatistics {
@@ -7,6 +8,7 @@ interface ForumStatistics {
   post_count?: number;
   user_count?: number;
   most_recent_user?: string;
+  most_recent_user_id?: number;
 }
 
 const Statistics = () => {
@@ -40,7 +42,13 @@ const Statistics = () => {
           <div>{forumStatistics.thread_count}</div>
           <div>{forumStatistics.post_count}</div>
           <div>{forumStatistics.user_count}</div>
-          <div>{forumStatistics.most_recent_user}</div>
+          <div className="transition-colors hover:text-indigo-400">
+            <Link
+              href={`/forum/users/?user_id=${forumStatistics.most_recent_user_id}`}
+            >
+              {forumStatistics.most_recent_user}
+            </Link>
+          </div>
         </div>
       </div>
     </div>

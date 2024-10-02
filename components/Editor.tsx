@@ -1,5 +1,5 @@
 "use client";
-
+// @ts-ignore
 import {
   BlockTypeSelect,
   CreateLink,
@@ -32,6 +32,7 @@ import {
   ChangeCodeMirrorLanguage,
   codeMirrorPlugin,
   thematicBreakPlugin,
+  // @ts-ignore
 } from "@mdxeditor/editor";
 import { FC } from "react";
 

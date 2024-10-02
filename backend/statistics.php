@@ -33,6 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $stmt = $conn->prepare("
     SELECT
         (SELECT username FROM Users WHERE id = (SELECT MAX(id) FROM Users)) AS most_recent_user,
+        (SELECT id FROM Users WHERE id = (SELECT MAX(id) FROM Users)) AS most_recent_user_id,
         COUNT(DISTINCT u.id) AS user_count,
         COUNT(DISTINCT p.id) AS post_count,
         COUNT(DISTINCT t.id) AS thread_count

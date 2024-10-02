@@ -54,8 +54,12 @@ const TopicList: React.FC<TopicListProps> = ({ topicData, isLoading }) => {
                   </Link>
                 </h3>
                 <p className="text-sm">
-                  <span className="text-slate-200">
-                    {thread.thread_author_username}
+                  <span className="text-slate-200 transition-colors hover:text-indigo-400">
+                    <Link
+                      href={`/forum/users/?user_id=${thread.thread_author_id}`}
+                    >
+                      {thread.thread_author_username}
+                    </Link>
                   </span>
                   <span className="ml-3 text-slate-400">
                     {new Date(thread.latest_post_created_at).toLocaleDateString(
@@ -70,12 +74,16 @@ const TopicList: React.FC<TopicListProps> = ({ topicData, isLoading }) => {
                 </p>
               </div>
               <div className="hidden flex-col justify-center text-sm lg:flex">
-                <div className="m-0 p-0">Posts: {thread.post_count}</div>
+                <div className="m-0 p-0 pl-2">Posts: {thread.post_count}</div>
               </div>
-              <div className="grid h-full items-center justify-end gap-5 sm:grid-cols-[1fr_auto] md:my-0 md:justify-center">
+              <div className="grid h-full items-center justify-end gap-5 sm:grid-cols-[1fr_40px] md:my-0 md:justify-end">
                 <div className="hidden flex-col justify-start text-right text-sm sm:flex">
-                  <span className="ml-3 text-slate-200">
-                    {thread.latest_post_author_username}
+                  <span className="w-32 overflow-hidden text-ellipsis text-nowrap pl-3 text-slate-200 transition-colors hover:text-indigo-400">
+                    <Link
+                      href={`/forum/users/?user_id=${thread.latest_post_author_id}`}
+                    >
+                      {thread.latest_post_author_username}
+                    </Link>
                   </span>
                   <span>
                     {new Date(thread.latest_post_created_at).toLocaleDateString(

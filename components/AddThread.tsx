@@ -1,5 +1,6 @@
 import React, { useEffect, useState, Suspense, useRef } from "react";
 import "@mdxeditor/editor/style.css";
+// @ts-ignore
 import { MDXEditorMethods } from "@mdxeditor/editor";
 import Editor from "@/components/Editor";
 

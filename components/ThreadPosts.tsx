@@ -11,6 +11,7 @@ import Image from "next/image";
 import AddPost from "./AddPost";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import Link from "next/link";
 
 export interface ThreadData {
   topic_id: number;
@@ -128,8 +129,10 @@ const ThreadPosts = () => {
               {isLoading ? (
                 <div className="mt-2 h-5 w-[150px] flex-grow animate-pulse rounded bg-slate-600"></div>
               ) : (
-                <p className="flex-grow font-bold text-slate-200">
-                  {post.username}
+                <p className="flex-grow overflow-hidden text-ellipsis text-nowrap font-bold text-slate-200 transition-colors hover:text-indigo-400">
+                  <Link href={`/forum/users/?user_id=${post.user_id}`}>
+                    {post.username}
+                  </Link>
                 </p>
               )}
               {isLoading ? (

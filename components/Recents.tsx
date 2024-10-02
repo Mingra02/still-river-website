@@ -97,7 +97,11 @@ const Recents = () => {
                     day: "numeric",
                   })}
                 </p>
-                <p className="text-slate-200">{post.username}</p>
+                <p className="text-slate-200 transition-colors hover:text-indigo-400">
+                  <Link href={`/forum/users?user_id=${post.user_id}`}>
+                    {post.username}
+                  </Link>
+                </p>
               </>
             )}
           </div>
