@@ -146,17 +146,29 @@ const UserPage = () => {
               <div className="my-4 text-center sm:text-left">
                 <UserForumTag role={user.type} />
               </div>
-              <div className="m-auto grid max-w-xs grid-cols-2 gap-4 sm:m-0">
+              <div className="m-auto grid max-w-xs grid-cols-2 gap-x-4 sm:m-0">
                 <div className="text-left">
                   <p>Member Since:</p>
-                  <p>Last Seen:</p>
-                  <p>Total Posts:</p>
-                  <p>Total Threads:</p>
                 </div>
                 <div className="text-right text-slate-200">
                   <p>{formatDate(user.member_since)}</p>
+                </div>
+                <div className="text-left">
+                  <p>Last Seen:</p>
+                </div>
+                <div className="text-right text-slate-200">
                   <p>{formatDate(user.last_seen)}</p>
+                </div>
+                <div className="text-left">
+                  <p>Total Posts:</p>
+                </div>
+                <div className="text-right text-slate-200">
                   <p>{user.total_posts}</p>
+                </div>
+                <div className="text-left">
+                  <p>Total Threads:</p>
+                </div>
+                <div className="text-right text-slate-200">
                   <p>{user.total_threads}</p>
                 </div>
               </div>
@@ -215,7 +227,7 @@ const UserPage = () => {
                       className="mt-4 border-b border-b-slate-400/40"
                       key={post.post_id}
                     >
-                      <div className="grid grid-cols-[auto_1fr_auto] items-center justify-center">
+                      <div className="grid grid-cols-[auto_1fr] items-center justify-center sm:grid-cols-[auto_1fr_auto]">
                         <Image
                           src={`https://www.the-still-river.com/img/forum/avatars/${post.from_users_avatar}.jpg`}
                           alt={`${post.from_username}'s avatar`}
@@ -223,14 +235,21 @@ const UserPage = () => {
                           width={48}
                           height={48}
                         />
-                        <h2 className="ml-4 text-lg font-bold text-slate-200 transition-colors hover:text-indigo-400">
-                          <Link
-                            href={`/forum/users/?user_id=${post.from_user_id}`}
-                          >
-                            {post.from_username}
-                          </Link>
-                        </h2>
-                        <p className="text-slate-400">{post.created_at}</p>
+                        <div className="ml-4">
+                          <h2 className="text-lg font-bold text-slate-200 transition-colors hover:text-indigo-400">
+                            <Link
+                              href={`/forum/users/?user_id=${post.from_user_id}`}
+                            >
+                              {post.from_username}
+                            </Link>
+                          </h2>
+                          <p className="text-slate-400 sm:hidden">
+                            {post.created_at}
+                          </p>
+                        </div>
+                        <p className="hidden text-slate-400 sm:block">
+                          {post.created_at}
+                        </p>
                       </div>
                       <div className="prose prose-invert my-3 !max-w-none">
                         <Markdown remarkPlugins={[remarkGfm]}>
@@ -251,7 +270,7 @@ const UserPage = () => {
                   className="mt-4 border-b border-b-slate-400/40"
                   key={post.post_id}
                 >
-                  <div className="grid grid-cols-[auto_1fr_auto] items-center justify-center">
+                  <div className="grid grid-cols-[auto_1fr] items-center justify-center sm:grid-cols-[auto_1fr_auto]">
                     <Image
                       src={`https://www.the-still-river.com/img/forum/avatars/${user.avatar}.jpg`}
                       alt={`${user.username}'s avatar`}
@@ -259,12 +278,21 @@ const UserPage = () => {
                       width={48}
                       height={48}
                     />
-                    <h2 className="ml-4 text-lg font-bold text-slate-200 transition-colors hover:text-indigo-400">
-                      <Link href={`/forum/thread/?thread_id=${post.thread_id}`}>
-                        {post.thread_title}
-                      </Link>
-                    </h2>
-                    <p className="text-slate-400">{post.post_time}</p>
+                    <div className="ml-4">
+                      <h2 className="text-lg font-bold text-slate-200 transition-colors hover:text-indigo-400">
+                        <Link
+                          href={`/forum/thread/?thread_id=${post.thread_id}`}
+                        >
+                          {post.thread_title}
+                        </Link>
+                      </h2>
+                      <p className="text-slate-400 sm:hidden">
+                        {post.post_time}
+                      </p>
+                    </div>
+                    <p className="hidden text-slate-400 sm:block">
+                      {post.post_time}
+                    </p>
                   </div>
                   <div className="prose prose-invert my-3 !max-w-none">
                     <Markdown remarkPlugins={[remarkGfm]}>
@@ -277,7 +305,7 @@ const UserPage = () => {
           )}
           {activePanel === "About" && (
             <div className="my-10 w-full rounded bg-gray-950/80 px-8 py-8 text-slate-400 shadow">
-              <div className="m-auto grid max-w-xs grid-cols-2 gap-4 sm:m-0">
+              <div className="m-auto grid max-w-xs grid-cols-[auto_1fr] gap-4 sm:m-0">
                 <div className="text-left">
                   <p>Birthday:</p>
                   <p>Gender:</p>
