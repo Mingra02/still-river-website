@@ -24,6 +24,14 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
     }
 }
 
+if (!isset($_SESSION['session_id']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
+    http_response_code(401);
+    echo json_encode(['error' => 'No session ID found. Please log in.']);
+    exit;
+} else {
+    $sessionId = $_SESSION['session_id'];
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['user_id'])) {
     // Handle GET request
     $user_id = $_GET['user_id'];
@@ -97,6 +105,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['user_id'])) {
     ];
 
     echo json_encode($response);
+
+} else if($_SERVER['REQUEST_METHOD'] === 'POST'){
+    $data = json_decode(file_get_contents('php://input'), true);
+
+    if (!isset($data['content'], $data['to_user_id'])) {
+        http_response_code(400);
+        echo json_encode(['error' => 'Missing required fields: content or to_user_id.']);
+        exit;
+    }
+
+    $content = $data['content'];
+    $to_user_id = $data['to_user_id'];
+
+    try {
+        $stmt = $conn->prepare("
+            INSERT INTO ProfilePosts (content, to_user_id, from_user_id, created_at) 
+            VALUES (:content, :to_user_id, (SELECT id FROM Users WHERE session_id = :session_id), NOW())
+        ");
+        $stmt->execute([
+            ':content' => $content,
+            ':to_user_id' => $to_user_id,
+            ':session_id' => $sessionId
+        ]);
+
+        $postId = $conn->lastInsertId();
+        http_response_code(201);
+        echo json_encode(['message' => 'Post created successfully', 'post_id' => $postId]);
+    } catch (PDOException $e) {
+        http_response_code(500);
+        echo json_encode(['error' => 'Failed to insert post: ' . $e->getMessage()]);
+    }
 
 } else {
     http_response_code(405);

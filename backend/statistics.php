@@ -25,7 +25,6 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $threadId = $_GET['topic_id'];
     $page = isset($_GET['page']) ? $_GET['page'] : 0;
     $resultsPerPage = 20;
     $offset = $page * $resultsPerPage;

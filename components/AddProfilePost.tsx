@@ -5,7 +5,7 @@ import { MDXEditorMethods } from "@mdxeditor/editor";
 import Editor from "@/components/Editor";
 
 interface AddPostProps {
-  thread_id: string | null;
+  user_id: string | null;
   onPostSubmit: () => void;
 }
 
@@ -14,7 +14,7 @@ interface User {
   id: number;
 }
 
-const AddPost: React.FC<AddPostProps> = ({ thread_id, onPostSubmit }) => {
+const AddProfilePost: React.FC<AddPostProps> = ({ user_id, onPostSubmit }) => {
   const mdxEditorRef = useRef<MDXEditorMethods>(null);
   const [user, setUser] = useState<User | null>(null);
 
@@ -40,20 +40,23 @@ const AddPost: React.FC<AddPostProps> = ({ thread_id, onPostSubmit }) => {
     let message = mdxEditorRef.current?.getMarkdown() || "";
 
     const response = await fetch(
-      "https://www.the-still-river.com/api/forum/post.php",
+      "https://www.the-still-river.com/api/forum/users.php",
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ message, thread_id }),
+        body: JSON.stringify({
+          content: message,
+          to_user_id: user_id,
+        }),
         credentials: "include",
       },
     );
 
     if (response.ok) {
-      mdxEditorRef.current?.setMarkdown("");
       onPostSubmit();
+      mdxEditorRef.current?.setMarkdown("");
     }
   };
 
@@ -65,7 +68,7 @@ const AddPost: React.FC<AddPostProps> = ({ thread_id, onPostSubmit }) => {
     <div className="mt-8 rounded-xl bg-slate-950/70 p-6 pb-2 shadow-lg">
       <form className="flex flex-col space-y-4" onSubmit={handleSubmit}>
         <label htmlFor="post" className="text-xl font-bold text-slate-200">
-          Reply
+          Post Profile Message
         </label>
         <Suspense>
           <Editor markdown={""} editorRef={mdxEditorRef} />
@@ -75,7 +78,7 @@ const AddPost: React.FC<AddPostProps> = ({ thread_id, onPostSubmit }) => {
             type="submit"
             className="flex w-full justify-center rounded bg-teal-600 px-3 py-2 font-bold text-teal-100 transition-colors hover:bg-teal-700 hover:text-teal-200 sm:w-auto sm:px-5"
           >
-            <p>Reply</p>
+            <p>Post</p>
           </button>
         </div>
       </form>
@@ -83,4 +86,4 @@ const AddPost: React.FC<AddPostProps> = ({ thread_id, onPostSubmit }) => {
   );
 };
 
-export default AddPost;
+export default AddProfilePost;

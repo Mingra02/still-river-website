@@ -115,6 +115,14 @@ const UserPage = () => {
       .then((data: User) => setUser(data));
   }, [user_id]);
 
+  const onPostSubmit = () => {
+    fetch(
+      `https://www.the-still-river.com/api/forum/users.php?user_id=${user_id}`,
+    )
+      .then((res) => res.json())
+      .then((data: User) => setUser(data));
+  };
+
   return (
     <>
       <Lights position="fixed" />
@@ -198,7 +206,7 @@ const UserPage = () => {
                       No profile posts found
                     </p>
                     <p className="text-slate-400">
-                      Be the first to post on this user's profile!
+                      Be the first to post on this user&apos;s profile!
                     </p>
                   </div>
                 ) : (
@@ -233,9 +241,7 @@ const UserPage = () => {
                   ))
                 )}
               </div>
-              <div className="my-10 w-full rounded bg-gray-950/80 px-8 py-4 text-slate-400 shadow">
-                <p>Add post</p>
-              </div>
+              <AddProfilePost user_id={user_id} onPostSubmit={onPostSubmit} />
             </>
           )}
           {activePanel === "Recent Activity" && (
@@ -296,6 +302,7 @@ const UserPage = () => {
 };
 
 import React from "react";
+import AddProfilePost from "@/components/AddProfilePost";
 
 const FullUserPage = () => {
   return (
