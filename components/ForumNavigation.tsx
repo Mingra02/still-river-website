@@ -44,7 +44,7 @@ const ForumNavigation: React.FC<ForumNavigationProps> = ({
             : "border-b border-slate-400"
         }`}
       >
-        <Link href="/forums/users">Users</Link>
+        <Link href="/forum/users">Users</Link>
       </li>
       <li className="flex-grow justify-center border-b border-slate-400 pb-2"></li>
     </ul>

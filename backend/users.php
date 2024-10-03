@@ -28,8 +28,12 @@ if (!isset($_SESSION['session_id']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
     http_response_code(401);
     echo json_encode(['error' => 'No session ID found. Please log in.']);
     exit;
-} else {
+} else if (isset($_SESSION['session_id'])) {
     $sessionId = $_SESSION['session_id'];
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    exit(0);
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['user_id'])) {
@@ -105,6 +109,98 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['user_id'])) {
     ];
 
     echo json_encode($response);
+
+} else if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['summary']) ){
+    // Select Most Active Users
+
+    $stats = $_GET['summary'];
+
+    if ($stats === '1') {
+        
+        $stmt = $conn->prepare("
+        SELECT 
+            users.id AS user_id, 
+            users.first_name AS first_name, 
+            users.last_name AS last_name,
+            users.username AS username, 
+            users.created_at AS member_since, 
+            users.updated_at AS last_seen,
+            users.gender AS gender, 
+            users.birthday AS birthday, 
+            users.description AS description,
+            users.type AS type, 
+            users.status AS status, 
+            users.title AS title, 
+            users.avatar AS avatar,
+            IFNULL(post_counts.total_posts, 0) AS total_posts  -- Ensure zero is returned if no posts
+        FROM Users users
+        LEFT JOIN (
+            SELECT user_id, COUNT(id) AS total_posts
+            FROM Posts
+            GROUP BY user_id
+        ) post_counts ON users.id = post_counts.user_id
+        ORDER BY post_counts.total_posts DESC
+        LIMIT 5;
+        ");
+        $stmt->execute();
+        $statsSend = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        echo json_encode($statsSend);
+    } else if ($stats === '2') {
+        // Select most recent users
+        $stmt = $conn->prepare("
+        SELECT 
+            users.id AS user_id, 
+            users.first_name AS first_name, 
+            users.last_name AS last_name,
+            users.username AS username, 
+            users.created_at AS member_since, 
+            users.updated_at AS last_seen,
+            users.gender AS gender, 
+            users.birthday AS birthday, 
+            users.description AS description,
+            users.type AS type, 
+            users.status AS status, 
+            users.title AS title, 
+            users.avatar AS avatar,
+            IFNULL(post_counts.total_posts, 0) AS total_posts  -- Ensure zero is returned if no posts
+        FROM Users users
+        LEFT JOIN (
+            SELECT user_id, COUNT(id) AS total_posts
+            FROM Posts
+            GROUP BY user_id
+        ) post_counts ON users.id = post_counts.user_id
+        ORDER BY users.created_at DESC
+        LIMIT 5;
+        ");
+        $stmt->execute();
+        $statsSend = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        echo json_encode($statsSend);
+    } else {
+        http_response_code(400);
+        echo json_encode(['error' => 'Invalid stats parameter']);
+    }
+
+} else if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['search'])) {
+
+    $search = $_GET['search'];
+
+    $stmt = $conn->prepare("
+        SELECT 
+            users.id AS user_id, users.first_name AS first_name, users.last_name AS last_name,
+            users.username AS username, users.created_at AS member_since, users.updated_at AS last_seen,
+            users.gender AS gender, users.birthday AS birthday, users.description AS description,
+            users.type AS type, users.status AS status, users.title AS title, users.avatar AS avatar
+        FROM Users users
+        WHERE users.username LIKE :search
+        ORDER BY users.username ASC
+    ");
+
+    $stmt->execute([':search' => '%' . $search . '%']);
+    $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    echo json_encode($users);
 
 } else if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $data = json_decode(file_get_contents('php://input'), true);

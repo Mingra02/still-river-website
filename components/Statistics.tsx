@@ -15,13 +15,7 @@ const Statistics = () => {
   const [forumStatistics, setForumStatistics] = useState<ForumStatistics>({});
 
   useEffect(() => {
-    fetch("https://www.the-still-river.com/api/forum/statistics.php", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-    })
+    fetch("https://www.the-still-river.com/api/forum/statistics.php")
       .then((res) => res.json())
       .then((data: ForumStatistics) => {
         setForumStatistics(data);
