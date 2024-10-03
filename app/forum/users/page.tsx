@@ -1,11 +1,8 @@
 "use client";
 
-import AddPost from "@/components/AddPost";
 import ForumNavigation from "@/components/ForumNavigation";
 import Lights from "@/components/Lights";
-import ThreadPosts from "@/components/ThreadPosts";
 import UserForumTag from "@/components/UserForumTag";
-import UserNavigation from "@/components/UserNavigation";
 import Markdown from "markdown-to-jsx";
 import Image from "next/image";
 import Link from "next/link";
@@ -61,7 +58,6 @@ const UserSearch: React.FC = () => {
     useState<string>(searchTerm);
   const [userResults, setUserResults] = useState<User[]>([]);
 
-  // Debounce search term
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedSearchTerm(searchTerm);
@@ -97,11 +93,6 @@ const UserSearch: React.FC = () => {
       setUserResults([]);
     }
   }, [debouncedSearchTerm]);
-
-  // Handle user selection
-  const handleSelectUser = (user_id: number) => {
-    window.location.href = `/forum/users/?user_id=${user_id}`;
-  };
 
   return (
     <div className="relative mt-8 grid grid-cols-1 gap-12 lg:grid-cols-[1fr_auto]">
@@ -143,37 +134,43 @@ const UserSearch: React.FC = () => {
         {searchTerm.length > 0 && userResults.length > 0 && (
           <ul className="mx-auto my-10 w-full max-w-sm rounded bg-gray-950/80 px-8 py-2 text-slate-400 shadow sm:max-w-full">
             {userResults.map((user) => (
-              <li
+              <Link
                 key={user.user_id}
-                onClick={() => handleSelectUser(user.user_id)}
-                className="my-4 flex cursor-pointer items-center rounded px-4 py-2 transition-colors even:bg-indigo-400/10 hover:bg-indigo-400/20"
+                href={`/forum/users/?user_id=${user.user_id}`}
               >
-                <Image
-                  src={`https://www.the-still-river.com/img/forum/avatars/${user.avatar}.jpg`}
-                  alt={`${user.username}'s avatar`}
-                  className="mr-2 h-20 w-20 rounded-full"
-                  width={80}
-                  height={80}
-                />
-                <div className="ml-6 flex flex-grow flex-col gap-y-3">
-                  <p className="text-lg font-bold text-slate-200">
-                    {user.username}
-                  </p>
-                  <div className="inline-block">
-                    <UserForumTag role={user.type} />
+                <li
+                  key={user.user_id}
+                  className="my-4 flex cursor-pointer items-center rounded px-4 py-2 transition-colors even:bg-indigo-400/10 hover:bg-indigo-400/20"
+                >
+                  <Image
+                    src={`https://www.the-still-river.com/img/forum/avatars/${user.avatar}.jpg`}
+                    alt={`${user.username}'s avatar`}
+                    className="mr-2 h-20 w-20 rounded-full"
+                    width={80}
+                    height={80}
+                  />
+                  <div className="ml-6 flex flex-grow flex-col gap-y-3">
+                    <p className="text-lg font-bold text-slate-200">
+                      {user.username}
+                    </p>
+                    <div className="inline-block">
+                      <UserForumTag role={user.type} />
+                    </div>
                   </div>
-                </div>
-                <div className="hidden flex-col md:flex">
-                  <p>
-                    Last Seen:{" "}
-                    <span className="text-slate-200">{user.last_seen}</span>
-                  </p>
-                  <p>
-                    Member Since:{" "}
-                    <span className="text-slate-200">{user.member_since}</span>
-                  </p>
-                </div>
-              </li>
+                  <div className="hidden flex-col md:flex">
+                    <p>
+                      Last Seen:{" "}
+                      <span className="text-slate-200">{user.last_seen}</span>
+                    </p>
+                    <p>
+                      Member Since:{" "}
+                      <span className="text-slate-200">
+                        {user.member_since}
+                      </span>
+                    </p>
+                  </div>
+                </li>
+              </Link>
             ))}
           </ul>
         )}
@@ -220,9 +217,7 @@ const RecentStatistics = () => {
                 width={32}
                 height={32}
               />
-              <Link
-                href={`https://www.the-still-river.com/forum/users/?user_id=${user.user_id}`}
-              >
+              <Link href={`/forum/users/?user_id=${user.user_id}`}>
                 <p className="text-slate-200 transition-colors hover:text-indigo-400">
                   {user.username}
                 </p>
@@ -270,9 +265,7 @@ const UserStatistics = () => {
                 width={32}
                 height={32}
               />
-              <Link
-                href={`https://www.the-still-river.com/forum/users/?user_id=${user.user_id}`}
-              >
+              <Link href={`/forum/users/?user_id=${user.user_id}`}>
                 <p className="text-slate-200 transition-colors hover:text-indigo-400">
                   {user.username}
                 </p>

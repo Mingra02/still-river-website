@@ -12,7 +12,7 @@ $allowedOrigins = array(
     'https://www.the-still-river.com',
     'https://the-still-river.com',
     'http://localhost:3000',
-    'https://mingra02.github.io/still-river-website/'
+    'https://mingra02.github.io'
 );
 
 if (isset($_SERVER['HTTP_ORIGIN'])) {
