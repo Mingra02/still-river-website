@@ -20,4 +20,11 @@ export const PORTFOLIO = [
     image: "/img/goodbytes.webp",
     link: "https://github.com/Still-River/goodbytes",
   },
+  {
+    title: "Dr. Ting Guo Realty",
+    description:
+      "Dr Ting Guo Realty is a versatile website with custom features tailored to client needs. This site integrates a sleek markdown blogging system for easy content management, a mailing list feature to engage readers, and a comprehensive property management module for seamless organization.",
+    image: "/img/drtingguo.png",
+    link: "https://www.drtingguo.com/",
+  },
 ];

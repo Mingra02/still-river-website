@@ -16,17 +16,23 @@ export const metadata: Metadata = {
 const PortfolioItem = ({ project }: { project: Project }) => {
   return (
     <div className="m-auto mt-12 grid max-w-sm grid-cols-1 place-items-center justify-center gap-5 md:mt-24 md:max-w-4xl md:grid-cols-[auto_1fr] md:gap-12">
-      <Image
-        src={project.image}
-        alt={project.title}
-        height={512}
-        width={512}
-        className="h-60 w-72 rounded-xl"
-      />
+      <div className="relative h-60 w-72 overflow-hidden rounded-xl transition-all hover:brightness-75">
+        <Link href={project.link} target="_blank" rel="noreferrer">
+          <Image
+            src={project.image}
+            alt={project.title}
+            layout="fill"
+            objectFit="cover"
+            className="rounded-xl"
+          />
+        </Link>
+      </div>
       <div className="ma-auto relative h-full w-full">
-        <h3 className="text-xl font-semibold text-slate-200">
-          {project.title}
-        </h3>
+        <Link href={project.link} target="_blank" rel="noreferrer">
+          <h3 className="text-xl font-semibold text-slate-200 transition-colors hover:text-indigo-400">
+            {project.title}
+          </h3>
+        </Link>
         <p className="mt-4 text-slate-400">{project.description}</p>
         <div className="align-center mt-4 grid w-full grid-cols-2 md:absolute md:bottom-2">
           <Link href={project.link} target="_blank" rel="noreferrer">
