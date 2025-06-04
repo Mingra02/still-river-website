@@ -11,6 +11,7 @@ import matter from "gray-matter";
 import Link from "next/link";
 import Head from "next/head";
 import type { Metadata, ResolvingMetadata } from "next";
+import BlogComments from "@/components/BlogComments";
 
 const getPostContent = (slug: string) => {
   const folder = "./content/blog_posts/";
@@ -167,6 +168,7 @@ export default function BlogPost(props: any) {
         <article className="prose prose-slate prose-invert m-auto pb-6 lg:prose-xl prose-a:no-underline prose-a:transition hover:prose-a:text-slate-400 prose-pre:bg-slate-200 prose-pre:text-slate-800 md:pb-12">
           <Markdown>{post.content}</Markdown>
         </article>
+        <BlogComments slug={slug} />
       </section>
     </>
   );
